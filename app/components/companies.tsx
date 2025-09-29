@@ -2,116 +2,94 @@ import gsap from "gsap";
 import { useEffect, useRef, useState } from "react";
 import { CompanyDetails } from "./company-details";
 
+interface Company {
+  name: string;
+  logo: string;
+  description: string;
+  founded: string;
+  industry: string;
+  employees: string;
+  revenue: string;
+  headquarters: string;
+}
+
 const companies: Company[] = [
   {
-    name: "Apple",
-    logo: "🍎",
+    name: "CHINA 中国",
+    logo: "🇨🇳",
     description:
-      "Apple Inc. is an American multinational technology company that specializes in consumer electronics, computer software, and online services.",
-    founded: "1976",
-    industry: "Technology",
-    employees: "164,000+",
-    revenue: "$394.3 billion",
-    headquarters: "Cupertino, California",
+      "China, officially the People's Republic of China, is a country in East Asia. It is the world's most populous country with a population exceeding 1.4 billion.",
+    founded: "1949",
+    industry: "Government",
+    employees: "1.4 billion+",
+    revenue: "$17.7 trillion GDP",
+    headquarters: "Beijing, China",
   },
   {
-    name: "Microsoft",
-    logo: "🪟",
+    name: "United States 美国",
+    logo: "🇺🇸",
     description:
-      "Microsoft Corporation is an American multinational technology corporation which produces computer software, consumer electronics, personal computers, and related services.",
-    founded: "1975",
-    industry: "Technology",
-    employees: "221,000+",
-    revenue: "$211.9 billion",
-    headquarters: "Redmond, Washington",
+      "The United States of America is a country primarily located in North America. It consists of 50 states, a federal district, and several territories.",
+    founded: "1776",
+    industry: "Government",
+    employees: "331 million+",
+    revenue: "$25.4 trillion GDP",
+    headquarters: "Washington D.C., USA",
   },
   {
-    name: "Google",
-    logo: "🌐",
+    name: "Canada 加拿大",
+    logo: "🇨🇦",
     description:
-      "Google LLC is an American multinational technology company that focuses on search engine technology, online advertising, cloud computing, and more.",
-    founded: "1998",
-    industry: "Technology",
-    employees: "156,000+",
-    revenue: "$307.4 billion",
-    headquarters: "Mountain View, California",
+      "Canada is a country in North America. Its ten provinces and three territories extend from the Atlantic Ocean to the Pacific Ocean and northward into the Arctic Ocean.",
+    founded: "1867",
+    industry: "Government",
+    employees: "38 million+",
+    revenue: "$2.1 trillion GDP",
+    headquarters: "Ottawa, Canada",
   },
   {
-    name: "Amazon",
-    logo: "📦",
+    name: "Australia 澳洲",
+    logo: "🇦🇺",
     description:
-      "Amazon.com, Inc. is an American multinational technology company which focuses on e-commerce, cloud computing, and artificial intelligence.",
-    founded: "1994",
-    industry: "E-commerce/Technology",
-    employees: "1,500,000+",
-    revenue: "$513.9 billion",
-    headquarters: "Seattle, Washington",
+      "Australia, officially the Commonwealth of Australia, is a sovereign country comprising the mainland of the Australian continent, the island of Tasmania, and numerous smaller islands.",
+    founded: "1901",
+    industry: "Government",
+    employees: "25.7 million+",
+    revenue: "$1.6 trillion GDP",
+    headquarters: "Canberra, Australia",
   },
   {
-    name: "Meta",
-    logo: "👥",
+    name: "New Zealand 新西兰",
+    logo: "🇳�",
     description:
-      "Meta Platforms, Inc. is an American multinational technology conglomerate holding company that owns Facebook, Instagram, and WhatsApp.",
-    founded: "2004",
-    industry: "Social Media/Technology",
-    employees: "86,000+",
-    revenue: "$134.9 billion",
-    headquarters: "Menlo Park, California",
+      "New Zealand is an island country in the southwestern Pacific Ocean. It consists of two main landmasses—the North Island and the South Island—and over 700 smaller islands.",
+    founded: "1840",
+    industry: "Government",
+    employees: "5.1 million+",
+    revenue: "$249 billion GDP",
+    headquarters: "Wellington, New Zealand",
   },
   {
-    name: "Netflix",
-    logo: "🎬",
+    name: "Cambodia 柬埔寨",
+    logo: "🇰🇭",
     description:
-      "Netflix, Inc. is an American subscription video on-demand over-the-top streaming service and production company.",
-    founded: "1997",
-    industry: "Entertainment/Technology",
-    employees: "12,800+",
-    revenue: "$31.6 billion",
-    headquarters: "Los Gatos, California",
+      "Cambodia, officially the Kingdom of Cambodia, is a country located in the southern portion of the Indochinese Peninsula in Southeast Asia.",
+    founded: "802",
+    industry: "Government",
+    employees: "16.7 million+",
+    revenue: "$27 billion GDP",
+    headquarters: "Phnom Penh, Cambodia",
   },
   {
-    name: "Tesla",
-    logo: "⚡",
+    name: "Japan 日本",
+    logo: "🇯🇵",
     description:
-      "Tesla, Inc. is an American multinational automotive and clean energy company that designs and manufactures electric vehicles.",
-    founded: "2003",
-    industry: "Automotive/Clean Energy",
-    employees: "127,000+",
-    revenue: "$96.8 billion",
-    headquarters: "Austin, Texas",
-  },
-  {
-    name: "Nike",
-    logo: "👟",
-    description:
-      "Nike, Inc. is an American multinational corporation that is engaged in the design, development, manufacturing, and marketing of footwear, apparel, and accessories.",
-    founded: "1964",
-    industry: "Sportswear",
-    employees: "79,100+",
-    revenue: "$51.2 billion",
-    headquarters: "Beaverton, Oregon",
-  },
-  {
-    name: "McDonald's",
-    logo: "🍟",
-    description:
-      "McDonald's Corporation is an American multinational fast food chain, founded in 1940 as a restaurant operated by Richard and Maurice McDonald.",
-    founded: "1940",
-    industry: "Fast Food",
-    employees: "200,000+",
-    revenue: "$23.2 billion",
-    headquarters: "Chicago, Illinois",
-  },
-  {
-    name: "Coca-Cola",
-    logo: "🥤",
-    description:
-      "The Coca-Cola Company is an American multinational beverage corporation founded in 1892, best known as the producer of Coca-Cola.",
-    founded: "1892",
-    industry: "Beverages",
-    employees: "86,200+",
-    revenue: "$43.0 billion",
-    headquarters: "Atlanta, Georgia",
+      "Japan is an island country in East Asia. It is situated in the northwest Pacific Ocean and is bordered on the west by the Sea of Japan.",
+    founded: "660 BC",
+    industry: "Government",
+    employees: "125.8 million+",
+    revenue: "$4.9 trillion GDP",
+    headquarters: "Tokyo, Japan",
   },
 ];
 
@@ -243,14 +221,14 @@ export function Companies() {
               ref={titleRef}
               className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
             >
-              Trusted by Leading Companies
+              Explore Countries Around the World
             </h2>
             <p
               ref={subtitleRef}
               className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
             >
-              Join thousands of companies that trust our platform to power their
-              success.
+              Discover fascinating countries from different continents and learn
+              about their unique cultures and histories.
             </p>
           </div>
 
@@ -341,7 +319,7 @@ export function Companies() {
 
           <div ref={footerRef} className="mt-12 text-center">
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              and 1000+ more companies worldwide
+              and 190+ more countries worldwide
             </p>
           </div>
         </div>
