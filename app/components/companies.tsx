@@ -169,7 +169,7 @@ export function Companies() {
           gsap.to(item, {
             scale: 1.1,
             opacity: 1,
-            color: "#3b82f6", // Blue color for selected
+
             fontWeight: "bold",
             duration: 0.6,
             ease: "power2.out",
@@ -277,22 +277,22 @@ export function Companies() {
                     }
                   }}
                   onMouseLeave={(e) => {
-                    if (!isDetailsOpen) {
-                      setHoveredCompany(null);
-                      gsap.to(e.currentTarget, {
-                        x: 0,
-                        opacity: 1,
-                        duration: 0.3,
-                        ease: "power2.out",
-                      });
-                      // Animate logo out
-                      gsap.to(logoRef.current, {
-                        opacity: 0,
-                        scale: 0.8,
-                        duration: 0.3,
-                        ease: "power2.out",
-                      });
-                    }
+                    // if (!isDetailsOpen) {
+                    setHoveredCompany(null);
+                    gsap.to(e.currentTarget, {
+                      x: 0,
+                      opacity: 1,
+                      duration: 0.3,
+                      ease: "power2.out",
+                    });
+                    // Animate logo out
+                    gsap.to(logoRef.current, {
+                      opacity: 0,
+                      scale: 0.8,
+                      duration: 0.3,
+                      ease: "power2.out",
+                    });
+                    // }
                   }}
                 >
                   <h3 className="text-[58px] font-semibold whitespace-nowrap ">
