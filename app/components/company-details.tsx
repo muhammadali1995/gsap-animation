@@ -154,7 +154,7 @@ export function CompanyDetails({ company, onClose }: CompanyDetailsProps) {
 
         {/* Company Comparison Section */}
         <div ref={comparisonRef} className="mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
             {comparisonCompanies.map((comp, index) => (
               <div
                 key={comp.name}
