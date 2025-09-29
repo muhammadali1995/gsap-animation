@@ -21,27 +21,42 @@ export function CompanyDetails({ company, onClose }: CompanyDetailsProps) {
   const detailsRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
+  const prevCompanyRef = useRef<Company | null>(null);
 
   useEffect(() => {
-    // Initial state
-    if (detailsRef.current && contentRef.current && logoRef.current) {
-      gsap.set(detailsRef.current, { x: "100%", opacity: 0 });
-      gsap.set(contentRef.current, { y: 50, opacity: 0 });
-      gsap.set(logoRef.current, { scale: 0, rotation: 180 });
+    // Check if this is a company change (not initial load)
+    const isCompanyChange =
+      prevCompanyRef.current && prevCompanyRef.current.name !== company.name;
 
-      // Animate in
+    if (isCompanyChange) {
+      // Animate out current content, then animate in new content
       const tl = gsap.timeline();
-      tl.to(detailsRef.current, {
-        x: "0%",
-        opacity: 1,
-        duration: 0.6,
-        ease: "power3.out",
+
+      // Animate out
+      tl.to(contentRef.current, {
+        y: -30,
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.in",
       })
+        .to(
+          logoRef.current,
+          {
+            scale: 0.8,
+            rotation: 180,
+            opacity: 0.5,
+            duration: 0.3,
+            ease: "power2.in",
+          },
+          "-=0.2"
+        )
+        // Animate in new content
         .to(
           logoRef.current,
           {
             scale: 1,
             rotation: 0,
+            opacity: 1,
             duration: 0.5,
             ease: "back.out(1.7)",
           },
@@ -55,10 +70,49 @@ export function CompanyDetails({ company, onClose }: CompanyDetailsProps) {
             duration: 0.5,
             ease: "power2.out",
           },
-          "-=0.2"
+          "-=0.3"
         );
+    } else {
+      // Initial load animation
+      if (detailsRef.current && contentRef.current && logoRef.current) {
+        gsap.set(detailsRef.current, { x: "100%", opacity: 0 });
+        gsap.set(contentRef.current, { y: 50, opacity: 0 });
+        gsap.set(logoRef.current, { scale: 0, rotation: 180 });
+
+        // Animate in
+        const tl = gsap.timeline();
+        tl.to(detailsRef.current, {
+          x: "0%",
+          opacity: 1,
+          duration: 0.6,
+          ease: "power3.out",
+        })
+          .to(
+            logoRef.current,
+            {
+              scale: 1,
+              rotation: 0,
+              duration: 0.5,
+              ease: "back.out(1.7)",
+            },
+            "-=0.3"
+          )
+          .to(
+            contentRef.current,
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.5,
+              ease: "power2.out",
+            },
+            "-=0.2"
+          );
+      }
     }
-  }, []);
+
+    // Store current company for next comparison
+    prevCompanyRef.current = company;
+  }, [company]);
 
   const handleClose = () => {
     if (detailsRef.current && contentRef.current && logoRef.current) {
@@ -98,7 +152,7 @@ export function CompanyDetails({ company, onClose }: CompanyDetailsProps) {
   return (
     <div
       ref={detailsRef}
-      className="fixed top-0 right-0 w-1/2 h-full bg-gradient-to-br from-gray-900 to-black text-white z-50 overflow-y-auto"
+      className="fixed top-0 right-0 w-3/4 h-full bg-gradient-to-br from-gray-900 to-black text-white z-50 overflow-y-auto"
     >
       {/* Close Button */}
       <button

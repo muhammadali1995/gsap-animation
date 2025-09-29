@@ -148,42 +148,60 @@ export function Companies() {
     }
   }, []);
 
-  const handleCompanyClick = (company: Company) => {
-    setSelectedCompany(company);
-    setIsDetailsOpen(true);
-
-    // Animate companies container to the right to make space for the left menu
-    if (containerRef.current && companiesRef.current) {
-      gsap.to(containerRef.current, {
-        x: "-25%", // Move right to make space for 300px menu from left
-        duration: 0.8,
-        ease: "power3.out",
-      });
-
-      // Fade out non-selected companies and highlight the selected one
+  const updateCompanyHighlight = (newCompany: Company) => {
+    if (companiesRef.current) {
       const companyItems = companiesRef.current.querySelectorAll("li");
       companyItems.forEach((item, index) => {
         const companyName = companies[index].name;
-        if (companyName === company.name) {
-          // Highlight selected company
+        if (companyName === newCompany.name) {
+          // Highlight selected company with bounce effect
           gsap.to(item, {
-            scale: 1.1,
+            scale: 1.2,
             opacity: 1,
-
             fontWeight: "bold",
-            duration: 0.6,
-            ease: "power2.out",
+            duration: 0.4,
+            ease: "back.out(1.7)",
           });
         } else {
           // Fade out other companies
           gsap.to(item, {
             scale: 0.9,
             opacity: 0.3,
-            duration: 0.6,
+            fontWeight: "normal",
+            duration: 0.4,
             ease: "power2.out",
           });
         }
       });
+    }
+  };
+
+  const handleCompanyClick = (company: Company) => {
+    if (isDetailsOpen && selectedCompany?.name === company.name) {
+      // If clicking the same company, do nothing
+      return;
+    }
+
+    if (isDetailsOpen) {
+      // If details are already open, just change the company with animation
+      setSelectedCompany(company);
+      updateCompanyHighlight(company);
+    } else {
+      // First time opening details
+      setSelectedCompany(company);
+      setIsDetailsOpen(true);
+
+      // Animate companies container to the left
+      if (containerRef.current) {
+        gsap.to(containerRef.current, {
+          x: "-38%",
+          duration: 0.8,
+          scale: 0.6,
+          ease: "power3.out",
+        });
+      }
+
+      updateCompanyHighlight(company);
     }
   };
 
@@ -204,7 +222,7 @@ export function Companies() {
       gsap.to(companyItems, {
         scale: 1,
         opacity: 1,
-        color: "#201a39", // Original color
+        color: "#201a39",
         fontWeight: "normal",
         duration: 0.6,
         ease: "power2.out",
@@ -274,10 +292,18 @@ export function Companies() {
                         duration: 0.4,
                         ease: "back.out(1.7)",
                       });
+                    } else {
+                      // When details are open, add subtle hover effect
+                      if (selectedCompany?.name !== company.name) {
+                        gsap.to(e.currentTarget, {
+                          scale: 1.05,
+                          duration: 0.2,
+                          ease: "power2.out",
+                        });
+                      }
                     }
                   }}
                   onMouseLeave={(e) => {
-                    // if (!isDetailsOpen) {
                     setHoveredCompany(null);
                     gsap.to(e.currentTarget, {
                       x: 0,
@@ -285,17 +311,27 @@ export function Companies() {
                       duration: 0.3,
                       ease: "power2.out",
                     });
-                    // Animate logo out
-                    gsap.to(logoRef.current, {
-                      opacity: 0,
-                      scale: 0.8,
-                      duration: 0.3,
-                      ease: "power2.out",
-                    });
-                    // }
+                    if (!isDetailsOpen) {
+                      // Animate logo out
+                      gsap.to(logoRef.current, {
+                        opacity: 0,
+                        scale: 0.8,
+                        duration: 0.3,
+                        ease: "power2.out",
+                      });
+                    } else {
+                      // When details are open, remove hover effect
+                      if (selectedCompany?.name !== company.name) {
+                        gsap.to(e.currentTarget, {
+                          scale: 0.9,
+                          duration: 0.2,
+                          ease: "power2.out",
+                        });
+                      }
+                    }
                   }}
                 >
-                  <h3 className="text-[58px] font-semibold whitespace-nowrap ">
+                  <h3 className="text-[58px] font-semibold whitespace-nowrap">
                     {company.name}
                   </h3>
                 </li>
