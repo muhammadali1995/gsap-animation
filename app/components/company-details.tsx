@@ -29,28 +29,17 @@ const comparisonCompanies = [
     revenue: "$513.9 billion",
     headquarters: "Seattle, Washington",
   },
-  {
-    name: "Google",
-    logo: "🌐",
-    description:
-      "Google LLC is an American multinational technology company that focuses on search engine technology, online advertising, cloud computing, and more.",
-    founded: "1998",
-    industry: "Technology",
-    employees: "156,000+",
-    revenue: "$307.4 billion",
-    headquarters: "Mountain View, California",
-  },
-  {
-    name: "Microsoft",
-    logo: "🪟",
-    description:
-      "Microsoft Corporation is an American multinational technology corporation which produces computer software, consumer electronics, personal computers, and related services.",
-    founded: "1975",
-    industry: "Technology",
-    employees: "221,000+",
-    revenue: "$211.9 billion",
-    headquarters: "Redmond, Washington",
-  },
+];
+
+const topCompanies = [
+  { name: "Apple", logo: "🍎" },
+  { name: "Microsoft", logo: "🪟" },
+  { name: "Google", logo: "🌐" },
+  { name: "Amazon", logo: "📦" },
+  { name: "Meta", logo: "👥" },
+  { name: "Tesla", logo: "⚡" },
+  { name: "Netflix", logo: "🎬" },
+  { name: "Nike", logo: "👟" },
 ];
 
 export function CompanyDetails({ company, onClose }: CompanyDetailsProps) {
@@ -60,6 +49,7 @@ export function CompanyDetails({ company, onClose }: CompanyDetailsProps) {
   const aboutRef = useRef<HTMLDivElement>(null);
   const comparisonRef = useRef<HTMLDivElement>(null);
   const actionsRef = useRef<HTMLDivElement>(null);
+  const topLogosRef = useRef<HTMLDivElement>(null);
   const prevCompanyRef = useRef<Company | null>(null);
 
   useEffect(() => {
@@ -77,7 +67,13 @@ export function CompanyDetails({ company, onClose }: CompanyDetailsProps) {
       }
 
       // Animate sections fade in from bottom when company changes
-      const sections = [logoRef, aboutRef, comparisonRef, actionsRef];
+      const sections = [
+        topLogosRef,
+        logoRef,
+        aboutRef,
+        comparisonRef,
+        actionsRef,
+      ];
 
       sections.forEach((ref, index) => {
         if (ref.current) {
@@ -106,6 +102,23 @@ export function CompanyDetails({ company, onClose }: CompanyDetailsProps) {
           duration: 0.6,
           ease: "power3.out",
         });
+      }
+
+      // Animate top logos in
+      if (topLogosRef.current) {
+        gsap.fromTo(
+          topLogosRef.current.children,
+          { y: -20, opacity: 0, scale: 0.8 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.4,
+            stagger: 0.1,
+            delay: 0.3,
+            ease: "back.out(1.7)",
+          }
+        );
       }
     }
 
@@ -150,7 +163,28 @@ export function CompanyDetails({ company, onClose }: CompanyDetailsProps) {
       </button>
 
       <div ref={scrollContainerRef} className="p-8 h-full overflow-y-auto">
-        {/* Company Logo */}
+        {/* Top Company Logos Block */}
+        <div
+          ref={topLogosRef}
+          className="mb-8 bg-gray-800/30 rounded-2xl p-6 backdrop-blur-sm border border-gray-700/50"
+        >
+          <h2 className="text-lg font-bold text-white mb-4 text-center">
+            Industry Leaders
+          </h2>
+          <div className="flex flex-wrap justify-center items-center gap-4">
+            {topCompanies.map((comp, index) => (
+              <div
+                key={comp.name}
+                className="group cursor-pointer p-3 rounded-xl bg-gray-700/30 hover:bg-gray-600/50 transition-all duration-300 transform hover:scale-110"
+                title={comp.name}
+              >
+                <div className="text-3xl group-hover:animate-bounce">
+                  {comp.logo}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
 
         {/* Company Comparison Section */}
         <div ref={comparisonRef} className="mb-8">
