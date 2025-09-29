@@ -1,2 +1,2 @@
-export { Hero } from "./hero";
+// export { Hero } from "./hero";
 export { Companies } from "./companies";
