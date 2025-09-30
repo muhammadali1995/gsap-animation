@@ -1,5 +1,6 @@
 import { Countries } from "~/components/countries";
 import type { Route } from "./+types/home";
+import { Hero } from "~/components/hero/hero";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -11,6 +12,7 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
   return (
     <>
+      <Hero />
       <Countries />
     </>
   );

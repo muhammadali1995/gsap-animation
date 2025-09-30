@@ -9,7 +9,6 @@ export function Countries() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const companiesRef = useRef<HTMLUListElement>(null);
-  const footerRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [hoveredCountry, setHoveredCountry] = useState<Country | null>(null);
   const logoRef = useRef<HTMLDivElement>(null);
@@ -72,7 +71,7 @@ export function Countries() {
       // Animate companies container to the left
       if (containerRef.current) {
         gsap.to(containerRef.current, {
-          x: "-38%",
+          x: "-35%",
           duration: 0.8,
           scale: 0.4,
           ease: "power3.out",
@@ -116,22 +115,6 @@ export function Countries() {
         className="bg-white flex items-center justify-center h-screen relative overflow-hidden"
       >
         <div ref={containerRef} className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2
-              ref={titleRef}
-              className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
-            >
-              Explore Countries Around the World
-            </h2>
-            <p
-              ref={subtitleRef}
-              className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
-            >
-              Discover fascinating countries from different continents and learn
-              about their unique cultures and histories.
-            </p>
-          </div>
-
           <div className="max-w-6xl mx-auto relative">
             {/* Company Logo Display */}
             <div
@@ -215,12 +198,6 @@ export function Countries() {
                 </li>
               ))}
             </ul>
-          </div>
-
-          <div ref={footerRef} className="mt-12 text-center">
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              and 190+ more countries worldwide
-            </p>
           </div>
         </div>
       </section>

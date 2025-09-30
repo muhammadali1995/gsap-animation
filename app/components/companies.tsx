@@ -21,6 +21,86 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
   const prevCompanyRef = useRef<Country | null>(null);
 
   useEffect(() => {
+    // Lock body scroll when details is open
+    const originalOverflow = document.body.style.overflow;
+    const originalHeight = document.body.style.height;
+
+    document.body.style.overflow = "hidden";
+    document.body.style.height = "100vh";
+
+    // Focus on the details container when opened
+    if (detailsRef.current) {
+      detailsRef.current.focus();
+    }
+
+    // Prevent scroll propagation
+    const handleScroll = (e: WheelEvent) => {
+      const container = scrollContainerRef.current;
+      if (!container) return;
+
+      const { scrollTop, scrollHeight, clientHeight } = container;
+      const isAtTop = scrollTop === 0;
+      const isAtBottom = scrollTop + clientHeight >= scrollHeight;
+
+      // Prevent parent scroll when at boundaries
+      if (
+        (isAtTop && e.deltaY < 0) || // Scrolling up at top
+        (isAtBottom && e.deltaY > 0) // Scrolling down at bottom
+      ) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
+
+    // Prevent touch scroll propagation
+    const handleTouchMove = (e: TouchEvent) => {
+      const container = scrollContainerRef.current;
+      if (!container) return;
+
+      const { scrollTop, scrollHeight, clientHeight } = container;
+      const isAtTop = scrollTop === 0;
+      const isAtBottom = scrollTop + clientHeight >= scrollHeight;
+
+      // Get touch movement direction
+      const touch = e.touches[0];
+      const startY = touch.clientY;
+
+      // Store the initial touch position
+      if (!container.dataset.startY) {
+        container.dataset.startY = startY.toString();
+        return;
+      }
+
+      const deltaY = startY - parseFloat(container.dataset.startY);
+
+      if (
+        (isAtTop && deltaY > 0) || // Swiping down at top
+        (isAtBottom && deltaY < 0) // Swiping up at bottom
+      ) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
+
+    const handleTouchStart = () => {
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.dataset.startY = "";
+      }
+    };
+
+    // Add event listeners to the details container
+    if (detailsRef.current) {
+      detailsRef.current.addEventListener("wheel", handleScroll, {
+        passive: false,
+      });
+      detailsRef.current.addEventListener("touchstart", handleTouchStart, {
+        passive: false,
+      });
+      detailsRef.current.addEventListener("touchmove", handleTouchMove, {
+        passive: false,
+      });
+    }
+
     // Check if this is a company change (not initial load)
     const isCompanyChange =
       prevCompanyRef.current && prevCompanyRef.current.name !== country.name;
@@ -95,6 +175,20 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
 
     // Store current country for next comparison
     prevCompanyRef.current = country;
+
+    // Cleanup function
+    return () => {
+      // Restore body scroll
+      document.body.style.overflow = originalOverflow;
+      document.body.style.height = originalHeight;
+
+      // Remove event listeners
+      if (detailsRef.current) {
+        detailsRef.current.removeEventListener("wheel", handleScroll);
+        detailsRef.current.removeEventListener("touchstart", handleTouchStart);
+        detailsRef.current.removeEventListener("touchmove", handleTouchMove);
+      }
+    };
   }, [country]);
 
   const handleClose = () => {
@@ -108,10 +202,25 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
     }
   };
 
+  // Handle keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        handleClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   return (
     <div
       ref={detailsRef}
-      className="fixed top-0 right-0 w-3/4 h-full pt-10 overflow-hidden border border-stone-300 shadow-2xl"
+      className="fixed top-0 right-0 w-3/4 h-full pt-10 overflow-hidden border border-stone-300 shadow-2xl z-50"
+      tabIndex={-1}
       style={{
         background: `
           linear-gradient(135deg, rgba(245, 245, 244, 0.95) 0%, rgba(231, 229, 228, 0.9) 25%, rgba(245, 245, 244, 0.95) 50%, rgba(231, 229, 228, 0.9) 75%, rgba(245, 245, 244, 0.95) 100%),
@@ -126,6 +235,7 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
       <button
         onClick={handleClose}
         className="absolute top-6 right-6 text-stone-600 hover:text-stone-800 transition-colors z-10"
+        aria-label="Close details"
       >
         <svg
           className="w-8 h-8"
@@ -142,11 +252,19 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
         </svg>
       </button>
 
-      <div ref={scrollContainerRef} className="h-full overflow-y-auto">
+      <div
+        ref={scrollContainerRef}
+        className="h-full overflow-y-auto overflow-x-hidden"
+        style={{
+          scrollBehavior: "smooth",
+          scrollbarWidth: "thin",
+          scrollbarColor: "#a8a29e #f5f5f4",
+        }}
+      >
         {/* Top Company Logos Block */}
         <div
           ref={topLogosRef}
-          className="mt-8  border border-l-0 border-b-0 border-stone-300 p-6 backdrop-blur-sm"
+          className="mt-8 border border-l-0 border-b-0 border-stone-300 p-6 backdrop-blur-sm"
         >
           <div className="flex flex-wrap justify-center items-center gap-4">
             {country.details.companies.map((comp, index) => (

@@ -1,2 +1,2 @@
-// export { Hero } from "./hero";
-export { Companies } from "./countries";
+export { Hero } from "./hero/hero";
+export { Countries } from "./countries";
