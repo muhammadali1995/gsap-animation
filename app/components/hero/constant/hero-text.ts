@@ -3,41 +3,45 @@ export const HERO_TEXT: {
 }[] = [
   {
     content: `
-          <h1 class='hero__title'>全球顶级零售渠道</h1>
+          <h1 class='hero__title tracking-[5.5px]'>全球顶级零售渠道</h1>
         `,
   },
   {
     content: `
-          <h1 class='text-2xl md:text-4xl lg:text-7xl font-light text-center'>全球顶级零售渠</h1>
-          <h2 class='text-xl md:text-3xl lg:text-6xl font-light text-center mt-4'> 一 站式入驻</h2>
-          <p class='text-base md:text-lg lg:text-xl font-light text-center mt-6 max-w-2xl mx-auto leading-relaxed'>
+          <h1 class='text-2xl md:text-4xl lg:text-7xl font-light text-center tracking-[3.5px]'>全球顶级零售渠</h1>
+          <h2 class='text-xl md:text-3xl lg:text-6xl font-light text-center mt-4 tracking-[3.5px]'> 一 站式入驻</h2>
+          <p class='text-base md:text-lg lg:text-xl font-light text-center mt-6 max-w-2xl mx-auto leading-relaxed tracking-[2.3px]'>
           与增长解决方案
             </p>
         `,
   },
   {
     content: `
-         <h3 class='text-xl md:text-3xl lg:text-4xl text-center font-light leading-[1.3] tracking-widest'>为品牌提供 </h3>
-         <h3 class='text-xl md:text-3xl lg:text-4xl text-center font-light leading-[1.3] tracking-widest'>
+         <h3 class='text-xl md:text-3xl lg:text-4xl text-center font-light leading-[1.3] tracking-[3.5px]'>为品牌提供 </h3>
+         <h3 class='text-xl md:text-3xl lg:text-4xl text-center font-light leading-[1.3] tracking-[3.5px]'>
 渠道诊断·入驻谈判 </h3>
-            <h3 class='text-xl md:text-3xl lg:text-4xl text-center font-light leading-[1.3] tracking-widest'>
+            <h3 class='text-xl md:text-3xl lg:text-4xl text-center font-light leading-[1.3] tracking-[3.5px]'>
 运营优化·规模扩张</h3>
-            <h3 class='text-xl md:text-3xl lg:text-4xl text-center font-light leading-[1.3] tracking-widest'>
+            <h3 class='text-xl md:text-3xl lg:text-4xl text-center font-light leading-[1.3] tracking-[3.5px]'>
 的全链条渠道服务
             </h3>
         `,
   },
   {
     content: `
-            <h3 class='text-lg md:text-2xl lg:text-3xl text-center font-light leading-[1.3] tracking-[2.5px]'>我们只专注于一件事</h3>
+            <h3 class='text-lg md:text-2xl lg:text-3xl text-center font-light leading-[1.3] tracking-[3.5px]'>我们只专注于一件事</h3>
             `,
   },
   {
     content: `
-            <h3 class='text-lg md:text-2xl lg:text-3xl text-center font-light leading-[1.3] tracking-[2.5px]'>将您的产品高效送入目标渠道</h3>
-            <p class='text-lg md:text-2xl lg:text-3xl text-center font-light leading-[1.3] tracking-[2.5px]'>
+            <h3 class='text-lg md:text-2xl lg:text-3xl text-center font-light leading-[1.3] tracking-[3.5px]'>将您的产品高效送入目标渠道</h3>
+            <p class='text-lg md:text-2xl lg:text-3xl text-center font-light leading-[1.3] tracking-[3.5px]'>
               并实现持续动销
             </p>
         `,
+  },
+  {
+    content: `
+            `,
   },
 ];

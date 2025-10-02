@@ -97,6 +97,7 @@ export function Countries() {
   const handleCloseDetails = () => {
     setIsDetailsOpen(false);
     setSelectedCountry(null);
+    setHoveredCountry(null);
 
     // Return container to center & restore items
     if (containerRef.current) {
@@ -111,11 +112,11 @@ export function Countries() {
       const companyItems = companiesRef.current.querySelectorAll("li");
       gsap.to(companyItems, {
         scale: 1,
-        opacity: 1,
+        opacity: 0.6, // return to base faded state (matches class opacity-60)
         fontWeight: "normal",
-        duration: 0.6,
+        duration: 0.5,
         ease: "power2.out",
-        stagger: 0.05,
+        stagger: 0.04,
       });
     }
   };

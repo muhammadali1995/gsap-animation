@@ -111,13 +111,54 @@ export function Hero() {
         }
       }
 
-      // Function to update text content
-      function updateTextContent(index: number) {
-        const textElement = animatedTextRef.current as any;
+      // Simple text setter without animation
+      function setTextContent(index: number) {
+        const textElement = animatedTextRef.current as HTMLElement | null;
+        if (!textElement) return;
+        const currentSection = HERO_TEXT[index];
+        textElement.innerHTML = currentSection.content || "";
+      }
+
+      // Crossfade animation for text changes
+      let currentTextIndex = 0;
+      let isTransitioning = false;
+
+      function crossfadeToIndex(nextIndex: number) {
+        if (nextIndex === currentTextIndex || isTransitioning) return;
+        const textElement = animatedTextRef.current as HTMLElement | null;
         if (!textElement) return;
 
-        const currentSection = HERO_TEXT[index];
-        textElement.innerHTML = currentSection.content;
+        isTransitioning = true;
+        gsap.killTweensOf(textElement);
+
+        gsap
+          .timeline({
+            onComplete: () => {
+              isTransitioning = false;
+            },
+          })
+          .to(textElement, {
+            opacity: 0,
+            y: 20,
+            filter: "blur(4px)",
+            duration: 0.4,
+            ease: "power2.in",
+            onComplete: () => {
+              setTextContent(nextIndex);
+              currentTextIndex = nextIndex;
+            },
+          })
+          .fromTo(
+            textElement,
+            { opacity: 0, y: -20, filter: "blur(4px)" },
+            {
+              opacity: 1,
+              y: 0,
+              filter: "blur(0px)",
+              duration: 0.5,
+              ease: "power3.out",
+            }
+          );
       }
 
       initializeStars();
@@ -138,19 +179,12 @@ export function Hero() {
             else if (progress <= 0.8) warpSpeed = 1;
             else warpSpeed = 1 - (progress - 0.8) / 0.2;
 
-            // Calculate which text section to show
+            // Calculate which text section to show and trigger crossfade
             const sectionProgress = progress * (HERO_TEXT.length - 1);
-            const currentSectionIndex = Math.floor(sectionProgress);
-            const nextSectionIndex = Math.min(
-              currentSectionIndex + 1,
-              HERO_TEXT.length - 1
-            );
-            const sectionBlend = sectionProgress - currentSectionIndex;
+            const targetIndex = Math.round(sectionProgress);
+            const clampedIndex = Math.min(targetIndex, HERO_TEXT.length - 1);
 
-            // Update text content when crossing section boundaries
-            if (sectionBlend < 0.1) {
-              updateTextContent(currentSectionIndex);
-            }
+            crossfadeToIndex(clampedIndex);
           },
         },
       });
@@ -178,46 +212,16 @@ export function Hero() {
           ease: "power3.out",
         });
 
-      // Individual section animations for smooth text transitions
-      HERO_TEXT.forEach((_, index) => {
-        const startPercent = (index / HERO_TEXT.length) * 100;
-        const endPercent = ((index + 1) / HERO_TEXT.length) * 100;
-
-        gsap
-          .timeline({
-            scrollTrigger: {
-              trigger: stickyRef.current,
-              start: `${startPercent}% top`,
-              end: `${endPercent}% top`,
-              scrub: 0.5,
-              onEnter: () => updateTextContent(index),
-              onEnterBack: () => updateTextContent(index),
-            },
-          })
-          .fromTo(
-            animatedTextRef.current,
-            {
-              scale: 0.9,
-              opacity: 0.7,
-              filter: "blur(0px)",
-            },
-            {
-              scale: 1,
-              opacity: 1,
-              filter: "blur(0px)",
-              duration: 0.3,
-              ease: "power2.out",
-            }
-          );
-      });
+      // Remove per-section animations since crossfade handles all transitions
 
       // Exit animation
+      // Delay exit so last text stays longer (start later in scroll)
       gsap
         .timeline({
           scrollTrigger: {
             trigger: stickyRef.current,
-            start: "90% top",
-            end: "100% top",
+            start: "97% top", // was 90%
+            end: "105% top", // extend a bit beyond to smooth fade
             scrub: true,
           },
         })
@@ -252,8 +256,15 @@ export function Hero() {
 
       window.addEventListener("resize", handleResize);
 
-      // Initialize with first text
-      updateTextContent(0);
+      // Initialize with first text (no animation)
+      setTextContent(0);
+      if (animatedTextRef.current) {
+        gsap.set(animatedTextRef.current, {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+        });
+      }
 
       // Cleanup function
       return () => {
@@ -269,7 +280,7 @@ export function Hero() {
       <div className="container"></div>
       <div
         ref={stickyRef}
-        className="sticky-container relative h-[500vh] w-full"
+        className="sticky-container relative h-[600vh] w-full" /* increased from 500vh to prolong final section */
       >
         <div
           ref={webglRef}
