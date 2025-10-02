@@ -6,8 +6,6 @@ import { countries } from "~/constant/countries";
 
 export function Countries() {
   const sectionRef = useRef<HTMLElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const subtitleRef = useRef<HTMLParagraphElement>(null);
   const companiesRef = useRef<HTMLUListElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [hoveredCountry, setHoveredCountry] = useState<Country | null>(null);
@@ -19,10 +17,20 @@ export function Countries() {
   useEffect(() => {
     // Set initial logo state
     if (logoRef.current) {
-      gsap.set(logoRef.current, { opacity: 0, scale: 0.8 });
+      gsap.set(logoRef.current, {
+        opacity: 0,
+        scale: 0.8,
+        filter: "blur(2px)",
+        x: 80,
+      });
     }
     if (storeNamesRef.current) {
-      gsap.set(storeNamesRef.current, { opacity: 0, scale: 0.9, x: -30 });
+      gsap.set(storeNamesRef.current, {
+        opacity: 0,
+        scale: 0.85,
+        filter: "blur(2px)",
+        x: -80,
+      });
     }
     // Ensure container has no leftover transforms (keep centered)
     if (containerRef.current) {
@@ -76,7 +84,7 @@ export function Countries() {
       // Re-introduced: animate list container to the left & scale down
       if (containerRef.current) {
         gsap.to(containerRef.current, {
-          x: "-35%",
+          x: "-38%",
           scale: 0.4,
           duration: 0.8,
           ease: "power3.out",
@@ -123,114 +131,152 @@ export function Countries() {
           className="w-full h-full flex items-center justify-center"
         >
           <div className="relative flex items-center justify-center">
-            {/* Store Names (Left) */}
-            <div
-              ref={storeNamesRef}
-              className="fixed left-8 top-1/2 -translate-y-1/2 opacity-0 pointer-events-none z-10"
-            >
-              {hoveredCountry &&
-                !isDetailsOpen &&
-                hoveredCountry.details?.companies && (
-                  <div className="bg-white/90 backdrop-blur-sm rounded-md px-4 py-3 shadow-lg border border-stone-200 max-w-xs">
-                    <h4 className="text-sm font-semibold mb-2 text-stone-700">
-                      Stores
-                    </h4>
-                    <ul className="space-y-1 text-xs text-stone-700">
-                      {hoveredCountry.details.companies.slice(0, 6).map((c) => (
-                        <li key={c.name}>{c.name}</li>
+            {/* Left: store names (plain, responsive hidden on small screens) */}
+            <div className="fixed left-4 lg:left-48 md:left-10 top-1/2 -translate-y-1/2 z-10 pointer-events-none hidden md:flex flex-col gap-4 items-center justify-center text-center">
+              <div
+                ref={storeNamesRef}
+                className="opacity-0 flex items-center justify-center"
+              >
+                {hoveredCountry &&
+                  !isDetailsOpen &&
+                  hoveredCountry.details?.companies && (
+                    <ul className="space-y-1 text-center">
+                      {hoveredCountry.details.companies.slice(0, 5).map((c) => (
+                        <li key={c.name}>
+                          <span className="text-xs md:text-lg lg:text-2xl font-semibold leading-none opacity-80">
+                            {c.name}
+                          </span>
+                        </li>
                       ))}
+                      {hoveredCountry.details.companies.length > 5 && (
+                        <li>
+                          <span className="text-xs md:text-lg lg:text-2xl font-semibold leading-none opacity-80">
+                            & {hoveredCountry.details.companies.length - 5} more
+                          </span>
+                        </li>
+                      )}
                     </ul>
-                  </div>
-                )}
+                  )}
+              </div>
             </div>
 
-            {/* Company Logo Display (Right Flag) */}
-            <div
-              ref={logoRef}
-              className="fixed right-8 top-1/2 opacity-0 pointer-events-none z-10"
-            >
-              {hoveredCountry && !isDetailsOpen && (
-                <div className="text-2xl md:text-3xl lg:text-2xl xl:text-6xl w-64 h-full flex items-center justify-center">
-                  <img src={hoveredCountry?.logo} alt={hoveredCountry?.name} />
-                </div>
-              )}
+            {/* Right: flag */}
+            <div className="fixed right-4 md:right-10 lg:right-48 top-1/2 -translate-y-1/2 z-10 pointer-events-none hidden md:flex flex-col gap-4 items-center justify-center">
+              <div
+                ref={logoRef}
+                className="opacity-0 flex items-center justify-center"
+              >
+                {hoveredCountry && !isDetailsOpen && (
+                  <div className="w-40 h-28 md:w-48 md:h-32 flex items-center justify-center">
+                    <img
+                      src={hoveredCountry.logo}
+                      alt={hoveredCountry.name}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                )}
+              </div>
             </div>
 
             <ul
               ref={companiesRef}
-              className="flex flex-col justify-center items-center gap-2"
+              className="flex flex-col justify-center items-center gap-2 px-4"
             >
               {countries.map((country) => (
                 <li
                   key={country.name}
-                  className="text-center p-4 rounded-lg text-[#201a39] cursor-pointer"
+                  className="group text-center p-2 md:p-4 rounded-lg text-[#201a39] cursor-pointer opacity-60"
                   onClick={() => handleCountryClick(country)}
                   onMouseEnter={(e) => {
-                    if (!isDetailsOpen) {
-                      setHoveredCountry(country);
-                      gsap.to(e.currentTarget, {
-                        // Keep centered: only adjust opacity (and slight scale for feedback)
-                        opacity: 0.35,
-                        scale: 0.98,
-                        duration: 0.3,
-                        ease: "power2.out",
-                      });
-                      // Animate logo in
-                      gsap.to(logoRef.current, {
-                        opacity: 1,
-                        scale: 1,
-                        duration: 0.4,
-                        ease: "back.out(1.7)",
-                      });
-                    } else {
-                      // When details are open, add subtle hover effect
-                      if (selectedCountry?.name !== country.name) {
-                        gsap.to(e.currentTarget, {
-                          scale: 1.05,
-                          duration: 0.2,
-                          ease: "power2.out",
-                        });
-                      }
+                    if (isDetailsOpen) return;
+                    setHoveredCountry(country);
+                    // Country item hover motion & opacity
+                    gsap.to(e.currentTarget, {
+                      x: 32,
+                      opacity: 1,
+                      duration: 0.4,
+                      ease: "power3.out",
+                    });
+                    // Kill any running tweens to avoid stacking
+                    if (logoRef.current) gsap.killTweensOf(logoRef.current);
+                    if (storeNamesRef.current)
+                      gsap.killTweensOf(storeNamesRef.current);
+                    const tl = gsap.timeline();
+                    if (storeNamesRef.current) {
+                      tl.fromTo(
+                        storeNamesRef.current,
+                        {
+                          autoAlpha: 0,
+                          x: -90,
+                          scale: 0.8,
+                          filter: "blur(6px)",
+                        },
+                        {
+                          autoAlpha: 1,
+                          x: 0,
+                          scale: 1,
+                          filter: "blur(0px)",
+                          duration: 0.55,
+                          ease: "power3.out",
+                        },
+                        0
+                      );
+                    }
+                    if (logoRef.current) {
+                      tl.fromTo(
+                        logoRef.current,
+                        {
+                          autoAlpha: 0,
+                          x: 90,
+                          scale: 0.75,
+                          rotation: 4,
+                          filter: "blur(6px)",
+                        },
+                        {
+                          autoAlpha: 1,
+                          x: 0,
+                          scale: 1,
+                          rotation: 0,
+                          filter: "blur(0px)",
+                          duration: 0.6,
+                          ease: "power3.out",
+                        },
+                        0.05
+                      );
                     }
                   }}
                   onMouseLeave={(e) => {
+                    if (isDetailsOpen) return;
                     setHoveredCountry(null);
                     gsap.to(e.currentTarget, {
-                      // Revert scale & opacity only
-                      scale: 1,
-                      opacity: 1,
-                      duration: 0.3,
-                      ease: "power2.out",
+                      x: 0,
+                      opacity: 0.6,
+                      duration: 0.4,
+                      ease: "power3.inOut",
                     });
-                    if (!isDetailsOpen) {
-                      // Animate logo out
-                      gsap.to(logoRef.current, {
-                        opacity: 0,
-                        scale: 0.8,
-                        duration: 0.3,
-                        ease: "power2.out",
-                      });
-                      // Animate store names out
+                    if (storeNamesRef.current) {
                       gsap.to(storeNamesRef.current, {
-                        opacity: 0,
+                        autoAlpha: 0,
+                        x: -60,
                         scale: 0.9,
-                        x: -30,
-                        duration: 0.25,
-                        ease: "power2.out",
+                        filter: "blur(4px)",
+                        duration: 0.3,
+                        ease: "power2.in",
                       });
-                    } else {
-                      // When details are open, remove hover effect
-                      if (selectedCountry?.name !== country.name) {
-                        gsap.to(e.currentTarget, {
-                          scale: 0.9,
-                          duration: 0.2,
-                          ease: "power2.out",
-                        });
-                      }
+                    }
+                    if (logoRef.current) {
+                      gsap.to(logoRef.current, {
+                        autoAlpha: 0,
+                        x: 60,
+                        scale: 0.9,
+                        filter: "blur(4px)",
+                        duration: 0.3,
+                        ease: "power2.in",
+                      });
                     }
                   }}
                 >
-                  <h3 className="text-xl md:text-3xl lg:text-5xl font-semibold whitespace-nowrap">
+                  <h3 className="font-semibold whitespace-nowrap text-[30px] md:text-[40px] lg:text-[56px] leading-none">
                     {country.name}
                   </h3>
                 </li>

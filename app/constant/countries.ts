@@ -4,7 +4,7 @@ export const countries: Country[] = [
   {
     id: "china",
     name: "CHINA 中国",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_China.svg",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/1920px-Flag_of_the_People%27s_Republic_of_China.svg.png",
     description:
       "China, officially the People's Republic of China, is a country in East Asia. It is the world's most populous country with a population exceeding 1.4 billion.",
     founded: "1949",
@@ -13,10 +13,7 @@ export const countries: Country[] = [
     revenue: "$17.7 trillion GDP",
     headquarters: "Beijing, China",
     details: {
-      companies: [
-        { name: "Alibaba", logo: "https://logo.clearbit.com/alibaba.com" },
-        { name: "Tencent", logo: "https://logo.clearbit.com/tencent.com" },
-      ],
+      companies: [{ name: "Sam's Club" }, { name: "Aldi" }, { name: "Costco" }],
     },
   },
   {
@@ -32,14 +29,14 @@ export const countries: Country[] = [
     headquarters: "Washington D.C., USA",
     details: {
       companies: [
-        { name: "Apple", logo: "https://logo.clearbit.com/apple.com" },
-        { name: "Microsoft", logo: "https://logo.clearbit.com/microsoft.com" },
-        { name: "Google", logo: "https://logo.clearbit.com/google.com" },
-        { name: "Amazon", logo: "https://logo.clearbit.com/amazon.com" },
-        { name: "Meta", logo: "https://logo.clearbit.com/meta.com" },
-        { name: "Tesla", logo: "https://logo.clearbit.com/tesla.com" },
-        { name: "Netflix", logo: "https://logo.clearbit.com/netflix.com" },
-        { name: "Nike", logo: "https://logo.clearbit.com/nike.com" },
+        { name: "Best Buy" },
+        { name: "CVS" },
+        { name: "H Mart" },
+        { name: "Kroger" },
+        { name: "Mitsuwa" },
+        { name: "Ranch Market" },
+        { name: "Rite Aid" },
+        { name: "Walgreens" },
       ],
     },
   },
@@ -56,10 +53,27 @@ export const countries: Country[] = [
     headquarters: "Ottawa, Canada",
     details: {
       companies: [
-        { name: "Shopify", logo: "https://logo.clearbit.com/shopify.com" },
-        { name: "RBC", logo: "https://logo.clearbit.com/rbc.com" },
-        { name: "TD Bank", logo: "https://logo.clearbit.com/td.com" },
-        { name: "Lululemon", logo: "https://logo.clearbit.com/lululemon.com" },
+        { name: "7-Eleven" },
+        { name: "BMR" },
+        { name: "Brunet" },
+        { name: "Canac" },
+        { name: "Canadian Tire" },
+        { name: "Costco" },
+        { name: "Couche-Tard" },
+        { name: "Filgo" },
+        { name: "Giant Tiger" },
+        { name: "Harnois Énergies" },
+        { name: "IGA" },
+        { name: "Jean Coutu" },
+        { name: "Matériaux Audet" },
+        { name: "Maxi" },
+        { name: "MP Materials" },
+        { name: "Patrick Morin" },
+        { name: "Pharmaprix" },
+        { name: "Réno-Dépôt" },
+        { name: "RONA" },
+        { name: "Super C" },
+        { name: "Walmart" },
       ],
     },
   },
@@ -76,14 +90,12 @@ export const countries: Country[] = [
     headquarters: "Canberra, Australia",
     details: {
       companies: [
-        { name: "BHP", logo: "https://logo.clearbit.com/bhp.com" },
+        { name: "BHP" },
         {
           name: "Commonwealth Bank",
-          logo: "https://logo.clearbit.com/commbank.com.au",
         },
         {
           name: "Woolworths",
-          logo: "https://logo.clearbit.com/woolworths.com.au",
         },
       ],
     },
@@ -101,12 +113,11 @@ export const countries: Country[] = [
     headquarters: "Wellington, New Zealand",
     details: {
       companies: [
-        { name: "Fonterra", logo: "https://logo.clearbit.com/fonterra.com" },
+        { name: "Fonterra" },
         {
           name: "Air New Zealand",
-          logo: "https://logo.clearbit.com/airnewzealand.co.nz",
         },
-        { name: "Spark", logo: "https://logo.clearbit.com/spark.co.nz" },
+        { name: "Spark" },
       ],
     },
   },
@@ -125,11 +136,9 @@ export const countries: Country[] = [
       companies: [
         {
           name: "Cambodia Angkor Air",
-          logo: "https://logo.clearbit.com/angkorair.com",
         },
         {
           name: "ACLEDA Bank",
-          logo: "https://logo.clearbit.com/acledabank.com.kh",
         },
       ],
     },
@@ -147,10 +156,10 @@ export const countries: Country[] = [
     headquarters: "Tokyo, Japan",
     details: {
       companies: [
-        { name: "Toyota", logo: "https://logo.clearbit.com/toyota.com" },
-        { name: "Sony", logo: "https://logo.clearbit.com/sony.com" },
-        { name: "Nintendo", logo: "https://logo.clearbit.com/nintendo.com" },
-        { name: "Honda", logo: "https://logo.clearbit.com/honda.com" },
+        { name: "Toyota" },
+        { name: "Sony" },
+        { name: "Nintendo" },
+        { name: "Honda" },
       ],
     },
   },

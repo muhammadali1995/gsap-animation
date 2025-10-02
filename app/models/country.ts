@@ -11,7 +11,6 @@ export interface Country {
   details: {
     companies: {
       name: string;
-      logo: string;
     }[];
   };
 }
