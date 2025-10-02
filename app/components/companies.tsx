@@ -38,6 +38,8 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
   const prevCompanyRef = useRef<Country | null>(null);
   const [countryCompanies, setCountryCompanies] = useState<Company[][]>([]);
 
+  console.log("country ", country)
+
   useEffect(() => {
     // Lock body scroll when details is open
     const originalOverflow = document.body.style.overflow;

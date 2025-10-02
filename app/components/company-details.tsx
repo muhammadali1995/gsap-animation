@@ -43,6 +43,8 @@ const topCompanies = [
 ];
 
 export function CompanyDetails({ company, onClose }: CompanyDetailsProps) {
+  console.log(company)
+  
   const detailsRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
