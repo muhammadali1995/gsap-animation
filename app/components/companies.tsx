@@ -1,11 +1,28 @@
-import { useEffect, useRef } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import gsap from "gsap";
 import type { Country } from "~/models/country";
+import ScrollLogos from '~/components/scroll-logos';
+import CompanyLogos from '../constant/companies-logos'
+import type {
+  Company,
+  CountryCompanies,
+} from '~/models/company';
 
 interface CompanyDetailsProps {
   country: Country;
   onClose: () => void;
 }
+
+const getCountryCompanies = (id: string): Company [][] => {
+  const countryEntry = CompanyLogos.find(
+    (company: CountryCompanies) => company[id]
+  );
+  return countryEntry?.[id] || [];
+};
 
 export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
   const detailsRef = useRef<HTMLDivElement>(null);
@@ -19,6 +36,7 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
   const statsRef = useRef<HTMLDivElement>(null);
   const circularStatsRef = useRef<HTMLDivElement>(null);
   const prevCompanyRef = useRef<Country | null>(null);
+  const [countryCompanies, setCountryCompanies] = useState<Company[][]>([]);
 
   useEffect(() => {
     // Lock body scroll when details is open
@@ -173,6 +191,8 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
       }
     }
 
+    setCountryCompanies(getCountryCompanies(country.id));
+
     // Store current country for next comparison
     prevCompanyRef.current = country;
 
@@ -266,21 +286,9 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
           ref={topLogosRef}
           className="mt-8 border border-l-0 border-b-0 border-stone-300 p-6 backdrop-blur-sm"
         >
-          <div className="flex flex-wrap justify-center items-center gap-4">
-            {country.details.companies.map((comp, index) => (
-              <div
-                key={comp.name}
-                className="group cursor-pointer"
-                title={comp.name}
-              >
-                <img
-                  src={comp.logo}
-                  alt={comp.name}
-                  className="w-24 h-24 object-contain"
-                />
-              </div>
-            ))}
-          </div>
+          {/* Start of the scrollable content*/}
+          {countryCompanies.length > 0 && <ScrollLogos companies={countryCompanies} />}
+          {/* End of the scrollable content*/}
         </div>
 
         {/* Company Details Section */}
@@ -339,6 +347,7 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
             />
           </div>
           {/* Content goes here */}
+
           {/* Title */}
           <h1 className="text-4xl font-medium text-stone-800 mb-6 text-center">
             Global Business Innovation Hub
