@@ -12,16 +12,21 @@ export function Countries() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [hoveredCountry, setHoveredCountry] = useState<Country | null>(null);
   const logoRef = useRef<HTMLDivElement>(null);
+  const storeNamesRef = useRef<HTMLDivElement>(null);
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
   useEffect(() => {
     // Set initial logo state
     if (logoRef.current) {
-      gsap.set(logoRef.current, {
-        opacity: 0,
-        scale: 0.8,
-      });
+      gsap.set(logoRef.current, { opacity: 0, scale: 0.8 });
+    }
+    if (storeNamesRef.current) {
+      gsap.set(storeNamesRef.current, { opacity: 0, scale: 0.9, x: -30 });
+    }
+    // Ensure container has no leftover transforms (keep centered)
+    if (containerRef.current) {
+      gsap.set(containerRef.current, { clearProps: "transform" });
     }
   }, []);
 
@@ -68,17 +73,15 @@ export function Countries() {
       // First time opening details
       setSelectedCountry(country);
       setIsDetailsOpen(true);
-
-      // Animate companies container to the left
+      // Re-introduced: animate list container to the left & scale down
       if (containerRef.current) {
         gsap.to(containerRef.current, {
           x: "-35%",
-          duration: 0.8,
           scale: 0.4,
+          duration: 0.8,
           ease: "power3.out",
         });
       }
-
       updateCountryHighlight(country);
     }
   };
@@ -87,16 +90,16 @@ export function Countries() {
     setIsDetailsOpen(false);
     setSelectedCountry(null);
 
-    // Animate companies container back to center
-    if (containerRef.current && companiesRef.current) {
+    // Return container to center & restore items
+    if (containerRef.current) {
       gsap.to(containerRef.current, {
         x: "0%",
-        scale: 1, // Reset scale back to original
+        scale: 1,
         duration: 0.8,
         ease: "power3.out",
       });
-
-      // Restore all company items to original state
+    }
+    if (companiesRef.current) {
       const companyItems = companiesRef.current.querySelectorAll("li");
       gsap.to(companyItems, {
         scale: 1,
@@ -115,15 +118,39 @@ export function Countries() {
         ref={sectionRef}
         className="bg-white flex items-center justify-center h-screen relative overflow-hidden"
       >
-        <div ref={containerRef} className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto relative">
-            {/* Company Logo Display */}
+        <div
+          ref={containerRef}
+          className="w-full h-full flex items-center justify-center"
+        >
+          <div className="relative flex items-center justify-center">
+            {/* Store Names (Left) */}
+            <div
+              ref={storeNamesRef}
+              className="fixed left-8 top-1/2 -translate-y-1/2 opacity-0 pointer-events-none z-10"
+            >
+              {hoveredCountry &&
+                !isDetailsOpen &&
+                hoveredCountry.details?.companies && (
+                  <div className="bg-white/90 backdrop-blur-sm rounded-md px-4 py-3 shadow-lg border border-stone-200 max-w-xs">
+                    <h4 className="text-sm font-semibold mb-2 text-stone-700">
+                      Stores
+                    </h4>
+                    <ul className="space-y-1 text-xs text-stone-700">
+                      {hoveredCountry.details.companies.slice(0, 6).map((c) => (
+                        <li key={c.name}>{c.name}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+            </div>
+
+            {/* Company Logo Display (Right Flag) */}
             <div
               ref={logoRef}
               className="fixed right-8 top-1/2 opacity-0 pointer-events-none z-10"
             >
               {hoveredCountry && !isDetailsOpen && (
-                <div className="text-8xl w-96 h-full flex items-center justify-center">
+                <div className="text-2xl md:text-3xl lg:text-2xl xl:text-6xl w-64 h-full flex items-center justify-center">
                   <img src={hoveredCountry?.logo} alt={hoveredCountry?.name} />
                 </div>
               )}
@@ -142,8 +169,9 @@ export function Countries() {
                     if (!isDetailsOpen) {
                       setHoveredCountry(country);
                       gsap.to(e.currentTarget, {
-                        x: 50,
-                        opacity: 0.3,
+                        // Keep centered: only adjust opacity (and slight scale for feedback)
+                        opacity: 0.35,
+                        scale: 0.98,
                         duration: 0.3,
                         ease: "power2.out",
                       });
@@ -168,7 +196,8 @@ export function Countries() {
                   onMouseLeave={(e) => {
                     setHoveredCountry(null);
                     gsap.to(e.currentTarget, {
-                      x: 0,
+                      // Revert scale & opacity only
+                      scale: 1,
                       opacity: 1,
                       duration: 0.3,
                       ease: "power2.out",
@@ -179,6 +208,14 @@ export function Countries() {
                         opacity: 0,
                         scale: 0.8,
                         duration: 0.3,
+                        ease: "power2.out",
+                      });
+                      // Animate store names out
+                      gsap.to(storeNamesRef.current, {
+                        opacity: 0,
+                        scale: 0.9,
+                        x: -30,
+                        duration: 0.25,
                         ease: "power2.out",
                       });
                     } else {
@@ -193,7 +230,7 @@ export function Countries() {
                     }
                   }}
                 >
-                  <h3 className="text-[58px] font-semibold whitespace-nowrap">
+                  <h3 className="text-xl md:text-3xl lg:text-5xl font-semibold whitespace-nowrap">
                     {country.name}
                   </h3>
                 </li>

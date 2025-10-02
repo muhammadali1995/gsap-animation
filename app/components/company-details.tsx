@@ -145,7 +145,7 @@ export function CompanyDetails({ company, onClose }: CompanyDetailsProps) {
       {/* Close Button */}
       <button
         onClick={handleClose}
-        className="absolute top-6 right-6 text-white hover:text-gray-300 transition-colors z-10"
+        className="absolute top-6 right-6 text-white hover:text-gray-300 transition-colors z-20 cursor-pointer"
       >
         <svg
           className="w-8 h-8"
