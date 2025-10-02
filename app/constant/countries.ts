@@ -2,6 +2,7 @@ import type { Country } from "~/models/country";
 
 export const countries: Country[] = [
   {
+    id: "chine",
     name: "CHINA 中国",
     logo: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_China.svg",
     description:
@@ -19,6 +20,7 @@ export const countries: Country[] = [
     },
   },
   {
+    id: "usa",
     name: "United States 美国",
     logo: "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg",
     description:
@@ -42,6 +44,7 @@ export const countries: Country[] = [
     },
   },
   {
+    id: "canada",
     name: "Canada 加拿大",
     logo: "https://upload.wikimedia.org/wikipedia/commons/c/cf/Flag_of_Canada.svg",
     description:
@@ -61,6 +64,7 @@ export const countries: Country[] = [
     },
   },
   {
+    id: "australia",
     name: "Australia 澳洲",
     logo: "https://upload.wikimedia.org/wikipedia/en/b/b9/Flag_of_Australia.svg",
     description:
@@ -85,6 +89,7 @@ export const countries: Country[] = [
     },
   },
   {
+    id: "zealand",
     name: "New Zealand 新西兰",
     logo: "https://upload.wikimedia.org/wikipedia/commons/3/3e/Flag_of_New_Zealand.svg",
     description:
@@ -106,6 +111,7 @@ export const countries: Country[] = [
     },
   },
   {
+    id: "cambodia",
     name: "Cambodia 柬埔寨",
     logo: "https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_Cambodia.svg",
     description:
@@ -129,6 +135,7 @@ export const countries: Country[] = [
     },
   },
   {
+    id: "japan",
     name: "Japan 日本",
     logo: "https://upload.wikimedia.org/wikipedia/en/9/9e/Flag_of_Japan.svg",
     description:

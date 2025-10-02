@@ -62,6 +62,7 @@ export function Countries() {
     if (isDetailsOpen) {
       // If details are already open, just change the country with animation
       setSelectedCountry(country);
+      console.log(selectedCountry);
       updateCountryHighlight(country);
     } else {
       // First time opening details
