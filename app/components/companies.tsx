@@ -1,27 +1,18 @@
-import {
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import type { Country } from "~/models/country";
-import ScrollLogos from '~/components/scroll-logos';
-import CompanyLogos from '../constant/companies-logos'
-import type {
-  Company,
-  CountryCompanies,
-} from '~/models/company';
+import ScrollLogos from "~/components/store-logos";
+import CompanyLogos from "../constant/companies-logos";
+import type { Company, CountryCompanies } from "~/models/company";
 
 interface CompanyDetailsProps {
   country: Country;
   onClose: () => void;
 }
 
-const getCountryCompanies = (id: string): Company [][] => {
-  const countryEntry = CompanyLogos.find(
-    (company: CountryCompanies) => company[id]
-  );
-  return countryEntry?.[id] || [];
+const getCountryCompanies = (id: string): Company[] => {
+  const found = CompanyLogos.find((company: CountryCompanies) => company[id]);
+  return found ? found[id] : [];
 };
 
 export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
@@ -36,7 +27,7 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
   const statsRef = useRef<HTMLDivElement>(null);
   const circularStatsRef = useRef<HTMLDivElement>(null);
   const prevCompanyRef = useRef<Country | null>(null);
-  const [countryCompanies, setCountryCompanies] = useState<Company[][]>([]);
+  const [countryCompanies, setCountryCompanies] = useState<Company[]>([]);
 
   useEffect(() => {
     // Lock body scroll when details is open
@@ -284,10 +275,12 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
         {/* Top Company Logos Block */}
         <div
           ref={topLogosRef}
-          className="mt-8 border border-l-0 border-b-0 border-stone-300 p-6 backdrop-blur-sm"
+          className="mt-8 bg-transparent p-6 backdrop-blur-sm border-0 border-t border-stone-300"
         >
           {/* Start of the scrollable content*/}
-          {countryCompanies.length > 0 && <ScrollLogos companies={countryCompanies} />}
+          {countryCompanies.length > 0 && (
+            <ScrollLogos companies={countryCompanies} />
+          )}
           {/* End of the scrollable content*/}
         </div>
 

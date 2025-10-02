@@ -2,7 +2,7 @@ import type { Country } from "~/models/country";
 
 export const countries: Country[] = [
   {
-    id: "chine",
+    id: "china",
     name: "CHINA 中国",
     logo: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_China.svg",
     description:
