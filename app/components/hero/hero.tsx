@@ -1,6 +1,7 @@
 import { gsap } from "gsap";
 import { useEffect, useRef } from "react";
 import "./hero.css";
+import { HERO_TEXT } from "./constant/hero-text";
 
 export function Hero() {
   const stickyRef = useRef(null);
@@ -9,40 +10,6 @@ export function Hero() {
   const webglRef = useRef(null);
 
   // Array of different text content for each scroll section
-  const textSections = [
-    {
-      title: "全球顶级零售渠道",
-      subtitle: "",
-      description: "",
-    },
-    {
-      title: "全球顶级零售渠道",
-      subtitle: "一站式入驻",
-      description: "",
-    },
-    {
-      title: "与增长解决方案",
-      subtitle: "",
-      description: "",
-    },
-    {
-      title: "为品牌提供",
-      subtitle: "渠道诊断·入驻谈判",
-      description: `运营优化·规模扩张
-      的全链条渠道服务
-      `,
-    },
-    {
-      title: "我们只专注于一件事",
-      subtitle: "",
-      description: "",
-    },
-    {
-      title: "",
-      subtitle: "将您的产品高效送入目标渠道并实现持续动销",
-      description: "",
-    },
-  ];
 
   useEffect(() => {
     // Only run on client side
@@ -149,12 +116,8 @@ export function Hero() {
         const textElement = animatedTextRef.current as any;
         if (!textElement) return;
 
-        const currentSection = textSections[index];
-        textElement.innerHTML = `
-          ${currentSection.title}<br/>
-          ${currentSection.subtitle}<br/>
-          ${currentSection.description}
-        `;
+        const currentSection = HERO_TEXT[index];
+        textElement.innerHTML = currentSection.content;
       }
 
       initializeStars();
@@ -176,11 +139,11 @@ export function Hero() {
             else warpSpeed = 1 - (progress - 0.8) / 0.2;
 
             // Calculate which text section to show
-            const sectionProgress = progress * (textSections.length - 1);
+            const sectionProgress = progress * (HERO_TEXT.length - 1);
             const currentSectionIndex = Math.floor(sectionProgress);
             const nextSectionIndex = Math.min(
               currentSectionIndex + 1,
-              textSections.length - 1
+              HERO_TEXT.length - 1
             );
             const sectionBlend = sectionProgress - currentSectionIndex;
 
@@ -216,9 +179,9 @@ export function Hero() {
         });
 
       // Individual section animations for smooth text transitions
-      textSections.forEach((_, index) => {
-        const startPercent = (index / textSections.length) * 100;
-        const endPercent = ((index + 1) / textSections.length) * 100;
+      HERO_TEXT.forEach((_, index) => {
+        const startPercent = (index / HERO_TEXT.length) * 100;
+        const endPercent = ((index + 1) / HERO_TEXT.length) * 100;
 
         gsap
           .timeline({
@@ -302,7 +265,7 @@ export function Hero() {
   }, []);
 
   return (
-    <div className="footer relative min-h-screen flex flex-col bg-[#111] text-white">
+    <div className="footer relative min-h-screen flex flex-col  text-white">
       <div className="container"></div>
       <div
         ref={stickyRef}
@@ -320,13 +283,7 @@ export function Hero() {
             <div
               ref={animatedTextRef}
               className="animated-text absolute text-center uppercase opacity-0"
-            >
-              CLARITY
-              <br />
-              THROUGH
-              <br />
-              SIMPLICITY
-            </div>
+            ></div>
           </div>
         </div>
       </div>
