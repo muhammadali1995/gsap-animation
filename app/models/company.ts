@@ -4,5 +4,5 @@ export interface Company {
 }
 
 export interface CountryCompanies {
-  [country: string]: Company[][];
+  [country: string]: Company[];
 }

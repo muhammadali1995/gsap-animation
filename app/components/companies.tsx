@@ -1,27 +1,18 @@
-import {
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import type { Country } from "~/models/country";
-import ScrollLogos from '~/components/scroll-logos';
-import CompanyLogos from '../constant/companies-logos'
-import type {
-  Company,
-  CountryCompanies,
-} from '~/models/company';
+import ScrollLogos from "~/components/store-logos";
+import CompanyLogos from "../constant/companies-logos";
+import type { Company, CountryCompanies } from "~/models/company";
 
 interface CompanyDetailsProps {
   country: Country;
   onClose: () => void;
 }
 
-const getCountryCompanies = (id: string): Company [][] => {
-  const countryEntry = CompanyLogos.find(
-    (company: CountryCompanies) => company[id]
-  );
-  return countryEntry?.[id] || [];
+const getCountryCompanies = (id: string): Company[] => {
+  const found = CompanyLogos.find((company: CountryCompanies) => company[id]);
+  return found ? found[id] : [];
 };
 
 export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
@@ -36,7 +27,8 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
   const statsRef = useRef<HTMLDivElement>(null);
   const circularStatsRef = useRef<HTMLDivElement>(null);
   const prevCompanyRef = useRef<Country | null>(null);
-  const [countryCompanies, setCountryCompanies] = useState<Company[][]>([]);
+  const firstRenderRef = useRef(true);
+  const [countryCompanies, setCountryCompanies] = useState<Company[]>([]);
 
   console.log("country ", country)
 
@@ -121,11 +113,23 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
       });
     }
 
-    // Check if this is a company change (not initial load)
+    const isFirst = firstRenderRef.current;
     const isCompanyChange =
       prevCompanyRef.current && prevCompanyRef.current.name !== country.name;
 
-    if (isCompanyChange) {
+    if (isFirst) {
+      // Only do slide-in once on initial mount
+      if (detailsRef.current) {
+        gsap.set(detailsRef.current, { x: "100%", opacity: 0 });
+        gsap.to(detailsRef.current, {
+          x: 0,
+          opacity: 1,
+          duration: 0.6,
+          ease: "power3.out",
+        });
+      }
+      firstRenderRef.current = false;
+    } else if (isCompanyChange) {
       // Scroll to top when company changes
       if (scrollContainerRef.current) {
         scrollContainerRef.current.scrollTo({
@@ -163,34 +167,6 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
             });
         }
       });
-    } else {
-      // Initial load animation - pushing from right to left
-      if (detailsRef.current) {
-        gsap.set(detailsRef.current, { x: "100%" });
-
-        gsap.to(detailsRef.current, {
-          x: "0%",
-          duration: 0.6,
-          ease: "power3.out",
-        });
-      }
-
-      // Animate top logos in
-      if (topLogosRef.current) {
-        gsap.fromTo(
-          topLogosRef.current.children,
-          { y: -20, opacity: 0, scale: 0.8 },
-          {
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            duration: 0.4,
-            stagger: 0.1,
-            delay: 0.3,
-            ease: "back.out(1.7)",
-          }
-        );
-      }
     }
 
     setCountryCompanies(getCountryCompanies(country.id));
@@ -241,7 +217,7 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
   return (
     <div
       ref={detailsRef}
-      className="fixed top-0 right-0 w-3/4 h-full pt-10 overflow-hidden border border-stone-300 shadow-2xl z-50"
+      className="fixed top-0 right-0 w-3/4 h-full pt-10 overflow-hidden border border-stone-300 shadow-2xl z-50 transform"
       tabIndex={-1}
       style={{
         background: `
@@ -286,10 +262,12 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
         {/* Top Company Logos Block */}
         <div
           ref={topLogosRef}
-          className="mt-8 border border-l-0 border-b-0 border-stone-300 p-6 backdrop-blur-sm"
+          className="mt-8 bg-transparent p-6 backdrop-blur-sm border-0 border-t border-stone-300"
         >
           {/* Start of the scrollable content*/}
-          {countryCompanies.length > 0 && <ScrollLogos companies={countryCompanies} />}
+          {countryCompanies.length > 0 && (
+            <ScrollLogos companies={countryCompanies} />
+          )}
           {/* End of the scrollable content*/}
         </div>
 

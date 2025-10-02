@@ -2,105 +2,25 @@ import type { Country } from "~/models/country";
 
 export const countries: Country[] = [
   {
-    id: "chine",
+    id: "china",
     name: "CHINA 中国",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_China.svg",
-    description:`
-       <article>
-          <h1>山姆开市客趋势+未来10年</h1>
-          
-          <p>由于竞争品牌开市客进入一二线竞争，山姆预测在未来十年，有望在中国实现100+店铺，开市客作为全球第一会员店连锁，全力开店深耕中国市场，将提前进入超快开店计划，并打开即时零售，以最快速度追逐山姆。届时双方有望销售额进入6000亿人民币/年。</p>
-          
-          <p>目前所知山姆会员连锁、已经快速介入三线高消费力城市扩展。例如广州、深圳、北京等地区。而开市客更多抢占一二线大市场。</p>
-          
-          <h2>山姆会员店 - 会员制仓储巨头深耕中国</h2>
-          
-          <p>作为沃尔玛旗下的高端会员制商店，山姆自1996年进入中国后，已成为沃尔玛中国业务的重要增长引擎，其2024年销售额已突破1000亿元人民币，贡献了沃尔玛中国约七成的销售额。</p>
-          
-          <p>截至2025年初，山姆在中国拥有54家门店，并预计在年底突破60。</p>
-          
-          <p>其会员数已逼近900万，会员续费率高达80%，卓越会员的续卡率更是达到92%。</p>
-          
-          <p>线上销售已成为其重要渠道，占比超过50%，超过80%的线上订单能在一小时内送达。</p>
-          
-          <h3>极致商品力</h3>
-          
-          <p>山姆严控SKU数量在4000个左右，并通过强大的采购和品控体系，打造了如瑞士卷等年销超20亿元的超级单品。其自有品牌Member’s Mark销售占比已达<strong>30%</strong>，是增长的关键动力。</p>
-          
-          <h3>全渠道触达</h3>
-          
-          <p>山姆通过“店仓云一体化”模式，建立了近500个前置仓和云仓，实现了“极速达”服务，是其拉新会员和提升体验的核心。</p>
-          
-          <h3>高质量下沉</h3>
-          
-          <p>山姆正从一线城市向东南沿海经济发达的三线城市乃至“富裕县城”拓展，如晋江、昆山等地，以精准触达更多中产家庭。</p>
-          
-          <h2>开市客 - 全球巨头的本土化探索</h2>
-          
-          <p>作为全球仓储会员店的开创者，开市客于2019年进入中国大陆，虽然门店数量较少，但每一家新店开业都能引发现象级的关注。</p>
-          
-          <p>截至2025年9月，开市客在中国大陆拥有7家门店，覆盖上海、苏州、深圳等6座城市。2024年，其中国业务销售额达到87亿元人民币，平均单店销售额接近13亿元。其苏州店的销售额增速在2025财年位居全球所有门店第一。</p>
-          
-          <h3>会员制基石</h3>
-          
-          <p>开市客在全球拥有约8100万付费会员，其成功的底层逻辑在于通过优质优价的商品和体验维持高会员续费率（全球续费率约89.8%），并将会员费收入持续投入于提升商品价值。</p>
-          
-          <h3>商品价值感</h3>
-          
-          <p>通过精简SKU、大力发展自有品牌Kirkland Signature并打造如烤鸡、热狗套餐等 iconic 商品，为会员创造独特的“寻宝”体验和极强的价值感。</p>
-          
-          <h3>审慎本土化</h3>
-          
-          <p>相对于山姆的快速扩张，开市客在中国的发展步伐更为稳健。它正积极学习并适应中国市场，例如在电商和即时零售领域进行尝试和磨合，以补足短板。</p>
-          
-          <h2>奥乐齐 - 硬折扣鼻祖的质价比之道</h2>
-          
-          <p>来自德国的奥乐齐（ALDI），以其“硬折扣”模式在中国市场，尤其是华东地区，开创了一片天地。</p>
-          
-          <p>截至2025年7月，奥乐齐在中国拥有78家门店，大部分位于上海，并已进入无锡、苏州等华东城市。2024年，其销售额达到20亿元人民币，增速高达100%，是当年中国超市Top100中增长最快的品牌。</p>
-          
-          <h3>极致质价比</h3>
-          
-          <p>奥乐齐秉承“好品质，够低价”的理念，通过推出大量9.9元以下的日需品和“长期降价”策略，如500克澳洲牛尾售价49.9元，精准抓住了消费者对性价比的需求。</p>
-          
-          <h3>自有品牌为核心</h3>
-          
-          <p>其门店内自有品牌商品占比高达90%。通过直接与生产商（如与海天、新希望等知名厂商合作贴牌）深度合作，去除中间环节，实现成本优化与品质把控。</p>
-          
-          <h3>精细化运营</h3>
-          
-          <p>奥乐齐采用<精简SKU>、整箱上货、智能订货系统等一系列措施，全链路压缩运营成本，以支撑其长期低价策略。同时，提供3公里范围内30分钟送达的服务，迎合中国消费者的即时零售需求。</p>
-          
-          <h2>PRISM瓴境选择与这三大零售品牌的合作，在中国市场呈现出不同的发展路径：</h2>
-          
-          <ul>
-            <li>山姆会员店 凭借其先发优势和成熟的<全渠道模式>高速扩张。</li>
-            <li>开市客 则依靠其强大的全球供应链和会员模式，稳扎稳打。</li>
-            <li>奥乐齐 以其极致的硬折扣模式和超高比例的自有品牌，在特定区域做深做透。</li>
-          </ul>
-          
-          <p>希望以上信息能帮助您更好地了解这三个品牌。</p>
-          
-          <p>更深入合理的分析提炼贵司品牌&产品与渠道的匹配度。</p>
-        </article>
-    `,
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/1920px-Flag_of_the_People%27s_Republic_of_China.svg.png",
+    description:
+      "China, officially the People's Republic of China, is a country in East Asia. It is the world's most populous country with a population exceeding 1.4 billion.",
     founded: "1949",
     industry: "Government",
     employees: "1.4 billion+",
     revenue: "$17.7 trillion GDP",
     headquarters: "Beijing, China",
     details: {
-      companies: [
-        { name: "Alibaba", logo: "https://logo.clearbit.com/alibaba.com" },
-        { name: "Tencent", logo: "https://logo.clearbit.com/tencent.com" },
-      ],
+      companies: [{ name: "Sam's Club" }, { name: "Aldi" }, { name: "Costco" }],
     },
   },
   {
     id: "usa",
     name: "United States 美国",
     logo: "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg",
-    description:`
+    description: `
       <article>
           <h1>美国作为全球最成熟的线下零售市场，以其庞大的体量与强劲的消费力持续引领全球零售格局。</h1>
           
@@ -138,14 +58,14 @@ export const countries: Country[] = [
     headquarters: "Washington D.C., USA",
     details: {
       companies: [
-        { name: "Apple", logo: "https://logo.clearbit.com/apple.com" },
-        { name: "Microsoft", logo: "https://logo.clearbit.com/microsoft.com" },
-        { name: "Google", logo: "https://logo.clearbit.com/google.com" },
-        { name: "Amazon", logo: "https://logo.clearbit.com/amazon.com" },
-        { name: "Meta", logo: "https://logo.clearbit.com/meta.com" },
-        { name: "Tesla", logo: "https://logo.clearbit.com/tesla.com" },
-        { name: "Netflix", logo: "https://logo.clearbit.com/netflix.com" },
-        { name: "Nike", logo: "https://logo.clearbit.com/nike.com" },
+        { name: "Best Buy" },
+        { name: "CVS" },
+        { name: "H Mart" },
+        { name: "Kroger" },
+        { name: "Mitsuwa" },
+        { name: "Ranch Market" },
+        { name: "Rite Aid" },
+        { name: "Walgreens" },
       ],
     },
   },
@@ -153,7 +73,7 @@ export const countries: Country[] = [
     id: "canada",
     name: "Canada 加拿大",
     logo: "https://upload.wikimedia.org/wikipedia/commons/c/cf/Flag_of_Canada.svg",
-    description:`
+    description: `
     <article>
       <h1>加拿大零售市场格局多元且成熟，形成 - 实体为王与全渠道融合的韧性生态。</h1>
       
@@ -233,10 +153,27 @@ export const countries: Country[] = [
     headquarters: "Ottawa, Canada",
     details: {
       companies: [
-        { name: "Shopify", logo: "https://logo.clearbit.com/shopify.com" },
-        { name: "RBC", logo: "https://logo.clearbit.com/rbc.com" },
-        { name: "TD Bank", logo: "https://logo.clearbit.com/td.com" },
-        { name: "Lululemon", logo: "https://logo.clearbit.com/lululemon.com" },
+        { name: "7-Eleven" },
+        { name: "BMR" },
+        { name: "Brunet" },
+        { name: "Canac" },
+        { name: "Canadian Tire" },
+        { name: "Costco" },
+        { name: "Couche-Tard" },
+        { name: "Filgo" },
+        { name: "Giant Tiger" },
+        { name: "Harnois Énergies" },
+        { name: "IGA" },
+        { name: "Jean Coutu" },
+        { name: "Matériaux Audet" },
+        { name: "Maxi" },
+        { name: "MP Materials" },
+        { name: "Patrick Morin" },
+        { name: "Pharmaprix" },
+        { name: "Réno-Dépôt" },
+        { name: "RONA" },
+        { name: "Super C" },
+        { name: "Walmart" },
       ],
     },
   },
@@ -253,14 +190,12 @@ export const countries: Country[] = [
     headquarters: "Canberra, Australia",
     details: {
       companies: [
-        { name: "BHP", logo: "https://logo.clearbit.com/bhp.com" },
+        { name: "BHP" },
         {
           name: "Commonwealth Bank",
-          logo: "https://logo.clearbit.com/commbank.com.au",
         },
         {
           name: "Woolworths",
-          logo: "https://logo.clearbit.com/woolworths.com.au",
         },
       ],
     },
@@ -278,12 +213,11 @@ export const countries: Country[] = [
     headquarters: "Wellington, New Zealand",
     details: {
       companies: [
-        { name: "Fonterra", logo: "https://logo.clearbit.com/fonterra.com" },
+        { name: "Fonterra" },
         {
           name: "Air New Zealand",
-          logo: "https://logo.clearbit.com/airnewzealand.co.nz",
         },
-        { name: "Spark", logo: "https://logo.clearbit.com/spark.co.nz" },
+        { name: "Spark" },
       ],
     },
   },
@@ -302,11 +236,9 @@ export const countries: Country[] = [
       companies: [
         {
           name: "Cambodia Angkor Air",
-          logo: "https://logo.clearbit.com/angkorair.com",
         },
         {
           name: "ACLEDA Bank",
-          logo: "https://logo.clearbit.com/acledabank.com.kh",
         },
       ],
     },
@@ -324,10 +256,10 @@ export const countries: Country[] = [
     headquarters: "Tokyo, Japan",
     details: {
       companies: [
-        { name: "Toyota", logo: "https://logo.clearbit.com/toyota.com" },
-        { name: "Sony", logo: "https://logo.clearbit.com/sony.com" },
-        { name: "Nintendo", logo: "https://logo.clearbit.com/nintendo.com" },
-        { name: "Honda", logo: "https://logo.clearbit.com/honda.com" },
+        { name: "Toyota" },
+        { name: "Sony" },
+        { name: "Nintendo" },
+        { name: "Honda" },
       ],
     },
   },
