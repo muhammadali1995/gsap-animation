@@ -215,7 +215,7 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
   return (
     <div
       ref={detailsRef}
-      className="fixed top-0 right-0 w-3/4 h-full pt-10 overflow-hidden border border-stone-300 shadow-2xl z-50 transform"
+      className="fixed top-0 right-0 w-3/4 h-full pt-10 overflow-hidden border border-stone-300 shadow-2xl z-50 transform tracking-wider"
       tabIndex={-1}
       style={{
         background: `
@@ -326,35 +326,11 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
           </div>
           {/* Content goes here */}
 
-          {/* Title */}
-          <h1 className="text-4xl font-medium text-stone-800 mb-6 text-center">
-            Global Business Innovation Hub
-          </h1>
-
           {/* Description */}
-          <div className="mb-8 space-y-4">
-            <p className="text-stone-600 leading-relaxed text-base">
-              In today's interconnected world, businesses are driving
-              unprecedented innovation and growth across all industries. From
-              technology giants that shape our digital landscape to financial
-              institutions that fuel global commerce, these companies represent
-              the pinnacle of modern enterprise.
-            </p>
-
-            <p className="text-stone-600 leading-relaxed text-base">
-              Each organization showcases unique strengths in leadership,
-              innovation, and market presence. They leverage cutting-edge
-              technologies, sustainable practices, and global partnerships to
-              create value for stakeholders while addressing complex challenges
-              in their respective markets.
-            </p>
-
-            <p className="text-stone-600 leading-relaxed text-base">
-              Through strategic vision and operational excellence, these
-              industry leaders continue to set benchmarks for performance,
-              innovation, and corporate responsibility in the global
-              marketplace.
-            </p>
+          <div className="my-8 space-y-4 p-10 bg-white/50 backdrop-blur-sm border border-stone-300 tracking-[5.5px] rounded-lg">
+            <h2 className="text-2xl font-medium text-stone-800 text-justify ">
+              山姆预测在未来十年，有望在中国实现100+店铺，开市客作为全球第一会员店连锁，全力开店深耕中国市场，将提前进入超快开店计划，并打开即时零售，以最快速度追逐山姆。届时双方有望销售额进入6000亿人民币/年。目前所知山姆会员连锁、已经快速介入三线高消费力城市扩展例如广州、深圳、北京等地区。而开市客更多抢占一二线大市场。
+            </h2>
           </div>
 
           {/* Features Cards */}
@@ -384,11 +360,11 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
                   </div>
                   <div>
                     <h3 className="text-stone-800 font-medium mb-2">
-                      Innovation
+                      全渠道深耕
                     </h3>
-                    <p className="text-stone-600 text-sm leading-relaxed">
-                      Cutting-edge technology and breakthrough solutions driving
-                      industry transformation
+                    <p className="text-stone-600 text-sm leading-relaxed text-justify">
+                      成熟的 “店仓一体化”
+                      网络与高效的会员数据系统，实现线上销售占比超50%，极速达服务覆盖核心市场。
                     </p>
                   </div>
                 </div>
@@ -414,11 +390,10 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
                   </div>
                   <div>
                     <h3 className="text-stone-800 font-medium mb-2">
-                      Global Reach
+                      全国化布局
                     </h3>
                     <p className="text-stone-600 text-sm leading-relaxed">
-                      Worldwide presence and international markets spanning
-                      multiple continents
+                      持续向三线高消费力城市下沉，全国门店已突破50家，会员数近900万，续卡率行业领先
                     </p>
                   </div>
                 </div>
@@ -444,11 +419,11 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
                   </div>
                   <div>
                     <h3 className="text-stone-800 font-medium mb-2">
-                      Leadership
+                      卓越商品力
                     </h3>
                     <p className="text-stone-600 text-sm leading-relaxed">
-                      Visionary leadership and strategic excellence in
-                      competitive markets
+                      严控SKU数量，自有品牌Member‘s
+                      Mark占比超30%，打造多款年销售破20亿明星单品。
                     </p>
                   </div>
                 </div>
@@ -474,11 +449,10 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
                   </div>
                   <div>
                     <h3 className="text-stone-800 font-medium mb-2">
-                      Performance
+                      稳健增长
                     </h3>
                     <p className="text-stone-600 text-sm leading-relaxed">
-                      Outstanding financial and operational results with
-                      consistent growth
+                      年销售额突破千亿，保持双位数增长，成为沃尔玛中国业绩核心引擎。
                     </p>
                   </div>
                 </div>
@@ -504,11 +478,10 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
                   </div>
                   <div>
                     <h3 className="text-stone-800 font-medium mb-2">
-                      Excellence
+                      行业标杆
                     </h3>
                     <p className="text-stone-600 text-sm leading-relaxed">
-                      Industry recognition and award-winning achievements across
-                      sectors
+                      中国付费会员制零售开创者与模式定义者，持续引领行业标准与消费体验升级。
                     </p>
                   </div>
                 </div>
@@ -523,7 +496,7 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
           className="border border-stone-300 border-t-0 border-l-0 p-8 bg-white/50 backdrop-blur-sm"
         >
           <h1 className="text-4xl font-medium text-stone-800 mb-6 text-center">
-            Market Performance & Analytics
+            市场表现对比
           </h1>
 
           <div className="overflow-x-auto">
@@ -658,6 +631,240 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+
+        {/* Refactored Narrative Section */}
+        <div className="p-10 bg-white/70 backdrop-blur-sm border-t border-stone-200">
+          <div className="max-w-5xl mx-auto space-y-16">
+            {/* Sam's Club Overview */}
+            <section className="space-y-5">
+              <h2 className="text-2xl font-bold text-stone-800">
+                山姆会员店 · 会员制仓储巨头深耕中国
+              </h2>
+              <p className="text-stone-700 leading-relaxed text-justify">
+                作为沃尔玛旗下的高端会员制商店，山姆自1996年进入中国后，已成为沃尔玛中国业务的重要增长引擎，其
+                2024 年销售额已突破
+                <span className="font-semibold"> 1000 亿元人民币</span>
+                ，贡献了沃尔玛中国约七成的销售额。
+              </p>
+              <p className="text-stone-700 leading-relaxed text-justify">
+                截至 2025 年初，山姆在中国拥有{" "}
+                <span className="font-semibold">54 家门店</span>
+                ，并预计在年底突破 60。其会员数已逼近
+                <span className="font-semibold">
+                  {" "}
+                  900 万
+                </span>，会员续费率高达{" "}
+                <span className="font-semibold">80%</span>
+                ，卓越会员续卡率更是达到
+                <span className="font-semibold">
+                  {" "}
+                  92%
+                </span>。线上销售占比已超过{" "}
+                <span className="font-semibold">50%</span>，超过 80%
+                的订单可在一小时内送达，形成高粘性服务闭环。
+              </p>
+            </section>
+
+            {/* Expansion Forecast */}
+            <section className="space-y-5">
+              <h3 className="text-xl font-semibold text-stone-800">
+                山姆预测与市场扩展
+              </h3>
+              <p className="text-stone-700 leading-relaxed text-justify">
+                山姆预测在未来十年，有望在中国实现{" "}
+                <span className="font-semibold">100+ 店铺</span>
+                。开市客作为全球第一会员店连锁，将全力开店深耕中国市场，预计将提前进入“超快开店计划”，并全面发力即时零售，以最快速度追逐山姆。双方在成熟市场与高线城市的深耕下，有望推动整体销售规模进入{" "}
+                <span className="font-semibold">6000 亿元人民币 / 年</span>{" "}
+                级别。
+              </p>
+              <p className="text-stone-700 leading-relaxed text-justify">
+                当前山姆已加速进入具备高消费力的三线城市与富裕县域（如晋江、昆山等），而开市客更多集中在一二线核心圈层，形成不同节奏的渗透策略差异。
+              </p>
+            </section>
+
+            {/* Strategic Pillars Cards */}
+            <section className="space-y-8">
+              <h3 className="text-xl font-semibold text-stone-800">
+                核心战略支柱
+              </h3>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="p-6 rounded-xl border border-stone-200 bg-white  hover:shadow-md transition-shadow">
+                  <h4 className="font-semibold text-stone-800 mb-2">
+                    全渠道深耕
+                  </h4>
+                  <p className="text-sm text-stone-600 leading-relaxed text-justify">
+                    “店仓一体化 + 会员数据体系” 支撑极速配送及高复购；线上占比超
+                    50%。
+                  </p>
+                </div>
+                <div className="p-6 rounded-xl border border-stone-200 bg-white  hover:shadow-md transition-shadow">
+                  <h4 className="font-semibold text-stone-800 mb-2">
+                    全国化布局
+                  </h4>
+                  <p className="text-sm text-stone-600 leading-relaxed text-justify">
+                    加速下沉至高消费潜力区域，渠道结构层次化推进，提升边缘市场渗透。
+                  </p>
+                </div>
+                <div className="p-6 rounded-xl border border-stone-200 bg-white  hover:shadow-md transition-shadow">
+                  <h4 className="font-semibold text-stone-800 mb-2">
+                    卓越商品力
+                  </h4>
+                  <p className="text-sm text-stone-600 leading-relaxed text-justify">
+                    严控 SKU（≈4000），自有品牌 Member’s Mark 占比
+                    30%+，打造爆品矩阵。
+                  </p>
+                </div>
+                <div className="p-6 rounded-xl border border-stone-200 bg-white  hover:shadow-md transition-shadow">
+                  <h4 className="font-semibold text-stone-800 mb-2">
+                    稳健增长
+                  </h4>
+                  <p className="text-sm text-stone-600 leading-relaxed text-justify">
+                    持续双位数增长态势，驱动沃尔玛中国整体盈利结构优化。
+                  </p>
+                </div>
+                <div className="p-6 rounded-xl border border-stone-200 bg-white  hover:shadow-md transition-shadow">
+                  <h4 className="font-semibold text-stone-800 mb-2">
+                    行业标杆
+                  </h4>
+                  <p className="text-sm text-stone-600 leading-relaxed text-justify">
+                    付费会员模式定义者，体验标准与运营效率持续被同行对标。
+                  </p>
+                </div>
+                <div className="p-6 rounded-xl border border-stone-200 bg-white  hover:shadow-md transition-shadow">
+                  <h4 className="font-semibold text-stone-800 mb-2">
+                    高质量下沉
+                  </h4>
+                  <p className="text-sm text-stone-600 leading-relaxed text-justify">
+                    拓展至富裕县域结合服务履约半径优化，实现结构性新增。
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            {/* Costco Section */}
+            <section className="space-y-5">
+              <h2 className="text-2xl font-bold text-stone-800">
+                开市客 · 全球巨头的本土化探索
+              </h2>
+              <p className="text-stone-700 leading-relaxed text-justify">
+                作为全球仓储会员店的开创者，开市客于 2019
+                年进入中国大陆。虽然门店数量尚少，但单店影响力与开业声量极高。截止
+                2025 年 9 月，开市客在中国大陆拥有{" "}
+                <span className="font-semibold">7 家门店</span>
+                ，覆盖上海、苏州、深圳等 6 座城市；2024 年中国业务销售额达到{" "}
+                <span className="font-semibold">87 亿元人民币</span>
+                ，单店销售逼近 13 亿元，苏州店销售增速位居其全球体系前列。
+              </p>
+              <div className="grid md:grid-cols-3 gap-6 pt-2">
+                <div className="p-5 bg-white/80 rounded-lg border border-stone-200">
+                  <h4 className="font-semibold text-stone-800 mb-2">
+                    会员制基石
+                  </h4>
+                  <p className="text-sm text-stone-600 leading-relaxed text-justify">
+                    全球续费率≈89.8%，会员费再投入机制支撑长期价值循环。
+                  </p>
+                </div>
+                <div className="p-5 bg-white/80 rounded-lg border border-stone-200">
+                  <h4 className="font-semibold text-stone-800 mb-2">
+                    商品价值感
+                  </h4>
+                  <p className="text-sm text-stone-600 leading-relaxed text-justify">
+                    精简 SKU + Kirkland 自有品牌 +
+                    寻宝式体验，塑造价格与品质复合护城河。
+                  </p>
+                </div>
+                <div className="p-5 bg-white/80 rounded-lg border border-stone-200">
+                  <h4 className="font-semibold text-stone-800 mb-2">
+                    审慎本土化
+                  </h4>
+                  <p className="text-sm text-stone-600 leading-relaxed text-justify">
+                    在电商 &
+                    即时零售补课中，逐步构建与中国消费者的持续交互触点。
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            {/* Aldi Section */}
+            <section className="space-y-5">
+              <h2 className="text-2xl font-bold text-stone-800">
+                奥乐齐 · 硬折扣鼻祖的质价比模式
+              </h2>
+              <p className="text-stone-700 leading-relaxed text-justify">
+                来自德国的奥乐齐（ALDI），依托“硬折扣”模式在华东区域稳步拓展。截至
+                2025 年 7 月，在中国拥有{" "}
+                <span className="font-semibold">78 家门店</span>
+                ，主要集中于上海，并进入苏州、无锡等扩张带。2024 年销售额约{" "}
+                <span className="font-semibold">20 亿元人民币</span>
+                ，同比增速高达 100%，位列中国超市 Top100 增长前列。
+              </p>
+              <div className="grid md:grid-cols-3 gap-6 pt-2">
+                <div className="p-5 bg-white/80 rounded-lg border border-stone-200">
+                  <h4 className="font-semibold text-stone-800 mb-2">
+                    极致质价比
+                  </h4>
+                  <p className="text-sm text-stone-600 leading-relaxed text-justify">
+                    大量 9.9 元以下商品 +
+                    “长期降价”策略，抓住价格敏感与理性消费共振。
+                  </p>
+                </div>
+                <div className="p-5 bg-white/80 rounded-lg border border-stone-200">
+                  <h4 className="font-semibold text-stone-800 mb-2">
+                    自有品牌核心
+                  </h4>
+                  <p className="text-sm text-stone-600 leading-relaxed text-justify">
+                    自有品牌占比≈90%，与国内优质生产商深度协同，降低中间成本。
+                  </p>
+                </div>
+                <div className="p-5 bg-white/80 rounded-lg border border-stone-200">
+                  <h4 className="font-semibold text-stone-800 mb-2">
+                    精细化运营
+                  </h4>
+                  <p className="text-sm text-stone-600 leading-relaxed text-justify">
+                    精简 SKU + 整箱上货 + 智能订货 + 即时零售（3km / 30
+                    分钟达）提升结构效率。
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            {/* Comparative Summary */}
+            <section className="space-y-6">
+              <h3 className="text-xl font-semibold text-stone-800">
+                PRISM 瓴境对合作路径的研判
+              </h3>
+              <p className="text-stone-700 leading-relaxed text-justify">
+                三种模式在中国形成差异化通道：山姆以“规模 +
+                会员结构价值”拉升运营深度；开市客依靠“全球供应链 +
+                价值感体验”稳步推进；奥乐齐以“高结构效率 +
+                自有品牌驱动”在局部市场做深做透。
+              </p>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="p-5 rounded-lg border border-stone-200">
+                  <h4 className="font-semibold mb-1">山姆</h4>
+                  <p className="text-sm text-stone-700 leading-relaxed text-justify">
+                    扩张节奏快，履约半径与数字化成熟，适配高客单复购型合作。
+                  </p>
+                </div>
+                <div className="p-5 rounded-lg border border-stone-200">
+                  <h4 className="font-semibold mb-1">开市客</h4>
+                  <p className="text-sm text-stone-700 leading-relaxed text-justify">
+                    价值密度高，商品精选属性强，适合差异化组合与品牌表达。
+                  </p>
+                </div>
+                <div className="p-5 rounded-lg border border-stone-200">
+                  <h4 className="font-semibold  mb-1">奥乐齐</h4>
+                  <p className="text-sm text-stone-700 leading-relaxed text-justify">
+                    性价比人群聚焦，适合结构优化与快速试错型新品验证。
+                  </p>
+                </div>
+              </div>
+              <p className="text-stone-600 leading-relaxed text-justify">
+                以上分析为后续品牌/产品与渠道适配策略奠定框架基础，可进一步结合品类结构、毛利模型与渠道渗透效率展开量化评估。
+              </p>
+            </section>
           </div>
         </div>
 
