@@ -111,16 +111,32 @@ export function Hero() {
         }
       }
 
-      // Simple text setter without animation
+      // Track if we've already appended (stacked) the second slide
+      let secondSlideAdded = false;
+      let combinedFirstSecondHTML = "";
+
+      // Simple text setter with one-time stacking behavior for index 1
       function setTextContent(index: number) {
         const textElement = animatedTextRef.current as HTMLElement | null;
         if (!textElement) return;
-        const currentSection = HERO_TEXT[index];
-        if (index === 1) {
-          textElement.innerHTML =
-            textElement.innerHTML + HERO_TEXT[index].content;
-        } else {
+
+        // Normal slides (except special handling for slide 1)
+        if (index !== 1) {
+          const currentSection = HERO_TEXT[index];
           textElement.innerHTML = currentSection.content || "";
+          return;
+        }
+
+        // Slide 1 logic (append only once, then reuse same combined HTML)
+        if (!secondSlideAdded) {
+          const firstHTML = textElement.innerHTML || HERO_TEXT[0].content || "";
+          const secondHTML = HERO_TEXT[1].content || "";
+          combinedFirstSecondHTML = firstHTML + secondHTML;
+          textElement.innerHTML = combinedFirstSecondHTML;
+          secondSlideAdded = true;
+        } else {
+          // When revisiting slide 1 (scrolling back), just restore combined content, no re-append
+          textElement.innerHTML = combinedFirstSecondHTML;
         }
       }
 
@@ -136,10 +152,9 @@ export function Hero() {
         // If target is the second slide (index 1), switch instantly without animation
         if (nextIndex === 1) {
           gsap.killTweensOf(textElement);
-          setTextContent(nextIndex);
-          // Ensure it's visible (in case previous animation altered it)
+          setTextContent(1); // Will append only first time
           gsap.set(textElement, { opacity: 1, y: 0, filter: "blur(0px)" });
-          currentTextIndex = nextIndex;
+          currentTextIndex = 1;
           return;
         }
 
