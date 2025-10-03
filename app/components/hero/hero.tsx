@@ -116,7 +116,12 @@ export function Hero() {
         const textElement = animatedTextRef.current as HTMLElement | null;
         if (!textElement) return;
         const currentSection = HERO_TEXT[index];
-        textElement.innerHTML = currentSection.content || "";
+        if (index === 1) {
+          textElement.innerHTML =
+            textElement.innerHTML + HERO_TEXT[index].content;
+        } else {
+          textElement.innerHTML = currentSection.content || "";
+        }
       }
 
       // Crossfade animation for text changes
@@ -127,6 +132,16 @@ export function Hero() {
         if (nextIndex === currentTextIndex || isTransitioning) return;
         const textElement = animatedTextRef.current as HTMLElement | null;
         if (!textElement) return;
+
+        // If target is the second slide (index 1), switch instantly without animation
+        if (nextIndex === 1) {
+          gsap.killTweensOf(textElement);
+          setTextContent(nextIndex);
+          // Ensure it's visible (in case previous animation altered it)
+          gsap.set(textElement, { opacity: 1, y: 0, filter: "blur(0px)" });
+          currentTextIndex = nextIndex;
+          return;
+        }
 
         isTransitioning = true;
         gsap.killTweensOf(textElement);
