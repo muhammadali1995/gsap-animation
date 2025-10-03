@@ -1,4 +1,4 @@
-import { Countries } from "~/components/countries";
+import { Countries } from "~/components";
 import type { Route } from "./+types/home";
 import { Hero } from "~/components/hero/hero";
 

@@ -1,7 +1,7 @@
 import { gsap } from "gsap";
 import { useEffect, useRef } from "react";
 import "./hero.css";
-import { HERO_TEXT } from "./constant/hero-text";
+import { HERO_TEXT } from "../../constant/hero-text";
 
 export function Hero() {
   const stickyRef = useRef(null);
