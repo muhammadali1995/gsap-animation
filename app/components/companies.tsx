@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo, memo } from "react";
 import gsap from "gsap";
 import type { Country } from "~/models/country";
 import ScrollLogos from "~/components/store-logos";
@@ -15,7 +15,7 @@ const getCountryCompanies = (id: string): Company[] => {
   return found ? found[id] : [];
 };
 
-export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
+export const CompanyDetails = memo(function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
   const detailsRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
@@ -174,6 +174,22 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
 
     // Cleanup function
     return () => {
+      // Kill all GSAP animations on this component
+      const allRefs = [
+        detailsRef,
+        logoRef,
+        aboutRef,
+        comparisonRef,
+        actionsRef,
+        topLogosRef,
+        companyDetailsRef,
+        statsRef,
+        circularStatsRef,
+      ];
+      allRefs.forEach((ref) => {
+        if (ref.current) gsap.killTweensOf(ref.current);
+      });
+
       // Restore body scroll
       document.body.style.overflow = originalOverflow;
       document.body.style.height = originalHeight;
@@ -197,6 +213,9 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
       });
     }
   };
+
+  // Memoize companies to avoid recalculation
+  const memoizedCompanies = useMemo(() => countryCompanies, [countryCompanies]);
 
   // Handle keyboard navigation
   useEffect(() => {
@@ -263,8 +282,8 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
           className="mt-8 bg-transparent p-6 backdrop-blur-sm border-0 border-t border-stone-300"
         >
           {/* Start of the scrollable content*/}
-          {countryCompanies.length > 0 && (
-            <ScrollLogos companies={countryCompanies} />
+          {memoizedCompanies.length > 0 && (
+            <ScrollLogos companies={memoizedCompanies} />
           )}
           {/* End of the scrollable content*/}
         </div>
@@ -983,4 +1002,4 @@ export function CompanyDetails({ country, onClose }: CompanyDetailsProps) {
       </div>
     </div>
   );
-}
+});
