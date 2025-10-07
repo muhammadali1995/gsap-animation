@@ -103,9 +103,11 @@ export function Hero() {
         }
       }
 
+      let rafId: number | null = null;
+      
       function animate() {
         if (animationActive) {
-          requestAnimationFrame(animate);
+          rafId = requestAnimationFrame(animate);
           moveStars();
           drawStars();
         }
@@ -299,8 +301,10 @@ export function Hero() {
       // Cleanup function
       return () => {
         animationActive = false;
+        if (rafId) cancelAnimationFrame(rafId);
         window.removeEventListener("resize", handleResize);
         ScrollTrigger.getAll().forEach((t) => t.kill());
+        gsap.killTweensOf([animatedTextRef.current, webglRef.current]);
       };
     });
   }, []);

@@ -97,6 +97,11 @@ export function Countries() {
     if (containerRef.current) {
       gsap.set(containerRef.current, { clearProps: "transform" });
     }
+
+    // Cleanup function to kill all GSAP animations on unmount
+    return () => {
+      gsap.killTweensOf([logoRef.current, storeNamesRef.current, containerRef.current, companiesRef.current]);
+    };
   }, []);
 
   // Highlight/fade country items based on selection
@@ -291,6 +296,8 @@ export function Countries() {
                       src={hoveredCountry.logo}
                       alt={hoveredCountry.name}
                       className="w-full h-full object-contain"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 )}
