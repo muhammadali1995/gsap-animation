@@ -1,5 +1,4 @@
 .DS_Store
-.env
 /node_modules/
 
 # React Router
@@ -9,3 +8,4 @@ temp_auto_push.bat
 temp_interactive_push.bat
 .gitignore
 branch_structure.json
+config.bat
